@@ -1,18 +1,13 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
+import * as React from "react";
 
-const Card = (props) => {
-	return (
-		<Box
-			mx="auto"
-			rounded="lg"
-			shadow="md"
-			bg={useColorModeValue("white", "gray.800")}
-			maxW="2xl"
-		>
-			{props.children}
-		</Box>
-	);
-};
-
-export default Card;
+export const Card = (props) => (
+	<Box
+		bg={useColorModeValue("white", "gray.700")}
+		p={10}
+		maxW="full"
+		shadow="base"
+		rounded={{ sm: "lg" }}
+		{...props}
+	/>
+);
