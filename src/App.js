@@ -1,11 +1,15 @@
-import './App.css';
+import "./App.css";
+import Layout from "./components/Layout";
+import AuctionRoom from "./pages/AuctionRoom";
 
 function App() {
-  return (
-    <>
-    yet to start code
-    </>
-  );
+	return (
+		<>
+			<Layout>
+				<AuctionRoom />
+			</Layout>
+		</>
+	);
 }
 
 export default App;
