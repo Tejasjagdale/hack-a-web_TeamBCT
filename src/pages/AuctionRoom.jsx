@@ -1,6 +1,8 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import React from "react";
 import { Card } from "../components/Card";
+import ItemDetails from "../components/ItemDetails";
+import ItemViewer from "../components/ItemViewer";
 
 const AuctionRoom = () => {
 	return (
@@ -9,14 +11,14 @@ const AuctionRoom = () => {
 				h="100vh"
 				templateRows="repeat(12, 1fr)"
 				templateColumns="repeat(12, 1fr)"
-				gap={2}
+				gap={1}
 			>
-				<GridItem rowSpan={4} colSpan={12} p={3} bg="green.200">
+				<GridItem rowSpan={4} colSpan={12} mt={2}>
 					<Card>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut
-						laudantium eos, dolores, quos, esse molestias velit non ullam
-						recusandae praesentium blanditiis corrupti quo provident quas enim
-						quam. Aliquam, quas ipsum!
+						<Flex direction="row" justifyContent="space-between">
+							<ItemViewer />
+							<ItemDetails />
+						</Flex>
 					</Card>
 				</GridItem>
 				<GridItem rowSpan={6} colSpan={12}>
