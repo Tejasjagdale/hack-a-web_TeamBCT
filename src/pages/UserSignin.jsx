@@ -1,10 +1,10 @@
 import React from "react";
 import { db } from "../utils/firebase-config";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import SignInCard from "SignInCard";
+import SignInCard from "../components/SignInCard";
 
-const CouncSignin = () => {
+const UserSignin = () => {
   const { signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
@@ -14,16 +14,16 @@ const CouncSignin = () => {
       .then((user) => {
         counsellorCollection.doc(user.user.uid.toString()).set(
           {
-			fname:user.user.displayName.split(" ")[0],
-			lname:user.user.displayName.split(" ")[1],
-			email:user.user.email,
+            fname: user.user.displayName.split(" ")[0],
+            lname: user.user.displayName.split(" ")[1],
+            email: user.user.email,
             isVerified: false,
             bio: "This is the bio",
             qualifications: ["MA", "PhD"],
           },
           { merge: true }
         );
-        
+
         navigate("/counsellor/verify");
       })
       .catch((error) => console.log(error));
@@ -36,4 +36,4 @@ const CouncSignin = () => {
   );
 };
 
-export default CouncSignin;
+export default UserSignin;
