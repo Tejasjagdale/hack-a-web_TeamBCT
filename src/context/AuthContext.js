@@ -52,7 +52,7 @@ export default function AuthContextProvider({ children }) {
 
 	function forgotPassword(email) {
 		return sendPasswordResetEmail(auth, email, {
-			url: "https://localhost:3000/login",
+			url: "https://localhost:3000/",
 		});
 	}
 
