@@ -42,12 +42,18 @@ const Events = () => {
     description: "",
     current_users: [],
     total_users: [],
+    photo: "",
     name: "",
     time: "",
   });
   let name, value;
   const [item, setItem] = useState({
-    photos: [],
+    photos: [
+      "https://wallpaperaccess.com/full/1585987.jpg",
+      "https://ak.picdn.net/shutterstock/videos/1037983121/thumb/1.jpg",
+      "https://thumbs.dreamstime.com/b/antique-statue-bust-david-pixel-mouse-pointer-audio-cassette-antique-statue-bust-david-pixel-mouse-pointer-239556058.jpg",
+      "https://t4.ftcdn.net/jpg/03/62/41/99/360_F_362419959_PDIKLQzAdABz2xBr64DyuBd1QEXuZA7p.jpg",
+    ],
     base: "",
     description: "",
     timer: "",
@@ -55,6 +61,7 @@ const Events = () => {
     name: "",
   });
   const [allItems, setAllItems] = useState([]);
+  const [allPhotos, setAllPhotos] = useState(["","","",""]);
   const navigate = useNavigate();
 
   const addToItemList = () => {
@@ -65,7 +72,12 @@ const Events = () => {
         return [...prev, tempItem];
       });
       setItem({
-        photos: [],
+        photos: [
+          "https://wallpaperaccess.com/full/1585987.jpg",
+          "https://ak.picdn.net/shutterstock/videos/1037983121/thumb/1.jpg",
+          "https://thumbs.dreamstime.com/b/antique-statue-bust-david-pixel-mouse-pointer-audio-cassette-antique-statue-bust-david-pixel-mouse-pointer-239556058.jpg",
+          "https://t4.ftcdn.net/jpg/03/62/41/99/360_F_362419959_PDIKLQzAdABz2xBr64DyuBd1QEXuZA7p.jpg",
+        ],
         base: "",
         description: "",
         timer: "",
@@ -142,11 +154,28 @@ const Events = () => {
   };
 
   const handleItemchange = (e) => {
+    e.preventDefault();
     name = e.target.name;
     value = e.target.value;
     // console.log(name, value);
     setItem((prevState) => {
       return { ...prevState, [name]: value };
+    });
+  };
+
+  const handlePhotochange = (e) => {
+    e.preventDefault();
+    name = e.target.name;
+    let id = parseInt(e.target.id);
+    value = e.target.value;
+    // console.log(name, value);
+    let temp = item.photos
+    temp[id] = value
+    let temp2 =  allPhotos
+    temp2[id] =  value
+    setAllPhotos(temp2)
+    setItem((prevState) => {
+      return { ...prevState, [name]: temp };
     });
   };
 
@@ -199,6 +228,22 @@ const Events = () => {
                       value={event.description}
                       id="desc"
                       name="description"
+                      type="text"
+                      onChange={handleEventChange}
+                    />
+                  </Flex>
+                </FormControl>
+              </WrapItem>
+              <WrapItem>
+                <FormControl>
+                  <Flex direction="column" alignItems="flex-start" my={5}>
+                    <FormLabel htmlFor="email">
+                      4. Event wallpaper url
+                    </FormLabel>
+                    <Input
+                      value={event.photo}
+                      id="epic"
+                      name="photo"
                       type="text"
                       onChange={handleEventChange}
                     />
@@ -266,6 +311,44 @@ const Events = () => {
                     </InputGroup>
                   </Flex>
                 </FormControl>
+                <Flex direction="column" alignItems="flex-start" my={5}>
+                  <Input
+                    required
+                    value={allPhotos[0]}
+                    placeholder="1. Item picture url"
+                    name="photos"
+                    id="0"
+                    type="text"
+                    onChange={handlePhotochange}
+                  />
+                  <Input
+                    required
+                    value={allPhotos[1]}
+                    placeholder="2. Item picture url"
+                    name="photos"
+                    id="1"
+                    type="text"
+                    onChange={handlePhotochange}
+                  />
+                  <Input
+                    required
+                    value={allPhotos[2]}
+                    placeholder="3. Item picture url"
+                    name="photos"
+                    id="2"
+                    type="text"
+                    onChange={handlePhotochange}
+                  />
+                  <Input
+                    required
+                    value={allPhotos[3]}
+                    placeholder="4. Item picture url"
+                    name="photos"
+                    id="3"
+                    type="text"
+                    onChange={handlePhotochange}
+                  />
+                </Flex>
                 <Button onClick={addToItemList}>Add Item</Button>
               </VStack>
               <Divider orientation="vertical" />

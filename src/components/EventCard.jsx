@@ -47,7 +47,7 @@ const EventCard = ({ item }) => {
         shadow="lg"
       >
         <Image
-          src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg"
+          src={item.photo}
           roundedTop="lg"
         />
 
