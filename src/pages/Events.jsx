@@ -175,8 +175,8 @@ const Events = () => {
 							<VStack>
 								<FormControl>
 									<Flex direction="column" alignItems="flex-start" my={5}>
-										<FormLabel htmlFor="email">1. Item Name</FormLabel>
 										<Input
+											placeholder="1. Item Name"
 											id="name"
 											name="name"
 											type="text"
@@ -184,8 +184,8 @@ const Events = () => {
 										/>
 									</Flex>
 									<Flex direction="column" alignItems="flex-start" my={5}>
-										<FormLabel htmlFor="email">2. Item Description</FormLabel>
 										<Input
+											placeholder="2. Item Description"
 											id="desc"
 											name="description"
 											type="text"
@@ -193,9 +193,9 @@ const Events = () => {
 										/>
 									</Flex>
 									<Flex direction="column" alignItems="flex-start" my={5}>
-										<FormLabel htmlFor="email">3. Base Price</FormLabel>
-										<InputGroup size="sm">
+										<InputGroup size="md">
 											<Input
+												placeholder="3. Base Price"
 												id="name"
 												name="base"
 												type="number"
