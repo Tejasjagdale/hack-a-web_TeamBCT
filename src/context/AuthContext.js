@@ -29,7 +29,6 @@ export default function AuthContextProvider({ children }) {
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       setCurrentUser(user);
       setPending(false);
     });

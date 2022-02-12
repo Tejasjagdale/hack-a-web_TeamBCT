@@ -13,7 +13,6 @@ import { useAuth } from "../context/AuthContext";
 const Header = () => {
   const { currentUser } = useAuth();
 
-  useEffect(() => console.log(currentUser), [currentUser]);
   return (
     <>
       <chakra.header w="full" px={{ xl: 4 }} py={4} shadow="md">
