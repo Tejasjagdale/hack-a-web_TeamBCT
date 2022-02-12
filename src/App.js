@@ -14,10 +14,7 @@ import { useEffect } from "react";
 function App() {
   let { id } = useParams();
 
-  useEffect(() => {
-    
-  }, [])
-  
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -26,10 +23,10 @@ function App() {
           <Routes>
             <Route element={<Layout />} />
             {/* <Route element={<PublicRoute />}> */}
-              <Route exact path="/" element={<UserSignin />} />
+            <Route exact path="/" element={<UserSignin />} />
             {/* </Route> */}
             <Route element={<PrivateRoute />}>
-              <Route exact path="/auction" element={<AuctionRoom />} />
+              <Route exact path="/auction/:id" element={<AuctionRoom />} />
             </Route>
             <Route element={<PrivateRoute />}>
               <Route exact path="/allevents" element={<AllEvents />} />
