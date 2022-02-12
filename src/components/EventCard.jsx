@@ -9,17 +9,19 @@ import {
 } from "@chakra-ui/react";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
 
 const EventCard = ({ item }) => {
   const { currentUser, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+
   const enterEvent = async () => {
     const EventCollection = await getDocs(collection(db, "events"));
-
     EventCollection.forEach(async (docref) => {
-      if (docref.data().id === item.id) {
+      console.log(docref.id);
+      if (docref.id === item.id) {
         await setDoc(
           doc(db, "events", docref.id),
           {
@@ -30,7 +32,7 @@ const EventCard = ({ item }) => {
             merge: true,
           }
         );
-        Navigate(`/auction?id=${item.id}`);
+        navigate(`/auction?id=${item.id}`);
       }
     });
   };
