@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { db } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import SignInCard from "../components/SignInCard";
-import Header from "../components/Header";
 
 const UserSignin = () => {
 	const { signInWithGoogle } = useAuth();
