@@ -8,24 +8,22 @@ const Audience = ({ usersArr }) => {
 
   useEffect(async () => {
     const snapshot = await firebase.firestore().collection("Users").get();
+    setUserDetails([]);
     if (!snapshot.empty) {
       snapshot.forEach((ele) => {
         if (usersArr.includes(ele.id.toString())) {
           setUserDetails((prevState) => [...prevState, ele.data()]);
-        } else {
-          console.log("Nope");
         }
       });
     }
-  }, []);
+  }, [usersArr]);
 
-  useEffect(() => console.log(userDetails), [userDetails]);
+  //   useEffect(() => console.log(userDetails), [userDetails]);
 
   return (
     <div>
       <Wrap spacing="50px">
         {userDetails.map((user) => {
-          console.log(user.fname, user.photo);
           return (
             <WrapItem>
               <Avatar

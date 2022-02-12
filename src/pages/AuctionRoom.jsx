@@ -7,17 +7,33 @@ import ItemDetails from "../components/ItemDetails";
 import ItemViewer from "../components/ItemViewer";
 import UserControls from "../components/UserControls";
 import { db } from "../utils/firebase-config";
+import firebase from "firebase/compat/app";
+// import 'firebase/compat/auth'
+import "firebase/compat/firestore";
 
 const AuctionRoom = () => {
   let { id } = useParams();
   const [eventObj, setEventObj] = useState({});
+
   const getEventData = async () => {
     const ref = db.collection("events").doc(id);
     const doc = await ref.get();
     setEventObj(doc.data());
   };
+
+  //   useEffect(() => {
+  //     getEventData();
+  //   }, []);
+
   useEffect(() => {
-    getEventData();
+    db.collection("events")
+      .where(firebase.firestore.FieldPath.documentId(), "==", id)
+      .onSnapshot(function (snapshot) {
+        snapshot.docChanges().forEach(function (change) {
+          console.log(change.doc.data());
+          setEventObj(change.doc.data());
+        });
+      });
   }, []);
 
   useEffect(() => console.log(eventObj), [eventObj]);
