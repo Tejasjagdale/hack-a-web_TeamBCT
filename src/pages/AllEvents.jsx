@@ -1,4 +1,4 @@
-import { Wrap, WrapItem } from "@chakra-ui/react";
+import { Divider, Heading, Wrap, WrapItem } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import EventCard from "../components/EventCard";
 import { db } from "../utils/firebase-config";
@@ -20,6 +20,8 @@ const AllEvents = () => {
 
 	return (
 		<div>
+			<Heading mt={3}>Ongoing Events</Heading>
+			<Divider my={2} />
 			<Wrap>
 				{allEvents
 					? allEvents.map((item) => (
