@@ -13,19 +13,21 @@ function App() {
   return (
     <>
       <AuthContextProvider>
-        <Routes>
-          <Route element={<Layout />} />
-          <Route exact path="/" element={<UserSignin />} />
-          <Route element={<PrivateRoute />}>
-            <Route exact path="/auction" element={<AuctionRoom />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route exact path="/events" element={<Events />} />
-          </Route>
-          <Route element={<PrivateRoute />}>
-            <Route exact path="/items" element={<Items />} />
-          </Route>
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route element={<Layout />} />
+            <Route exact path="/" element={<UserSignin />} />
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/auction" element={<AuctionRoom />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/events" element={<Events />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/items" element={<Items />} />
+            </Route>
+          </Routes>
+        </Layout>
       </AuthContextProvider>
     </>
   );
