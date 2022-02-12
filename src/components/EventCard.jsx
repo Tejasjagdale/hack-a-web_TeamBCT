@@ -32,7 +32,7 @@ const EventCard = ({ item }) => {
             merge: true,
           }
         );
-        navigate(`/auction?id=${item.id}`);
+        navigate(`/auction/${item.id}`);
       }
     });
   };
