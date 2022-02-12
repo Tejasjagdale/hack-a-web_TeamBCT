@@ -8,7 +8,7 @@ const PublicRoute = ({ component: C, ...props }) => {
     <Route
       {...props}
       render={(routeProps) =>
-        !isAuthenticated ? <C {...routeProps} /> : <Navigate to="/" />
+        !isAuthenticated ? <C {...routeProps} /> : <Navigate to="/events" />
       }
     />
   );

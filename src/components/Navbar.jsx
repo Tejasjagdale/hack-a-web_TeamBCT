@@ -10,18 +10,16 @@ import {
 	Text,
 	VisuallyHidden,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { GiHeadbandKnot } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useDisclosure } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
-import { db } from "../utils/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onOpen} = useDisclosure();
 
   return (
     <>
