@@ -121,7 +121,7 @@ const Events = () => {
 				h="90vh"
 				templateRows="repeat(3, 1fr)"
 				templateColumns="repeat(3, 1fr)"
-				gap={4}
+				gap={2}
 			>
 				<GridItem rowSpan={1} colSpan={3} mt={5}>
 					<Card>
@@ -165,7 +165,7 @@ const Events = () => {
 						</Wrap>
 					</Card>
 				</GridItem>
-				<GridItem rowSpan={2} colSpan={3} bg="papayawhip">
+				<GridItem rowSpan={1} colSpan={3} bg="papayawhip">
 					<Card>
 						<Heading>Add Items</Heading>
 						<Divider my={2} />
