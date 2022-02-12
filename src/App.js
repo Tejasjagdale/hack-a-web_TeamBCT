@@ -1,7 +1,7 @@
 import "./App.css";
 import Layout from "./components/Layout";
 import AuctionRoom from "./pages/AuctionRoom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import AuthContextProvider, { useAuth } from "./context/AuthContext";
 import UserSignin from "./pages/UserSignin";
@@ -9,8 +9,16 @@ import Events from "./pages/Events";
 import Items from "./pages/Items";
 import AllEvents from "./pages/AllEvents";
 import { PublicRoute } from "./auth/PublicRoute";
+import { useEffect } from "react";
 
 function App() {
+  let { id } = useParams();
+
+  useEffect(() => {
+    
+  }, [])
+  
+
   return (
     <>
       <AuthContextProvider>

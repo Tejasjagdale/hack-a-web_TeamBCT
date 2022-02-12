@@ -56,6 +56,7 @@ const Events = () => {
 	const [allItems, setAllItems] = useState([]);
 
 	const addToItemList = () => {
+    item.tempid = allItems.length + 1;
 		setAllItems((prev) => {
 			return [...prev, item];
 		});
@@ -116,6 +117,13 @@ const Events = () => {
 			return { ...prevState, [name]: value };
 		});
 	};
+
+  const removeItem = (e)=>{
+    e.preventDefault()
+    let temp = allItems
+    temp = temp.splice(e.target.name,1)
+    setAllItems(temp)
+  }
 
 	return (
 		<>
@@ -230,7 +238,7 @@ const Events = () => {
 								<VStack>
 									{allItems ? (
 										allItems.map((item) => {
-											return <ItemsCard item={item} />;
+											return <ItemsCard key={item.tempid} item={item}  removeItem={removeItem} />;
 										})
 									) : (
 										<>No items</>
