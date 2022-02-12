@@ -6,12 +6,10 @@ import ItemDetails from "../components/ItemDetails";
 import ItemViewer from "../components/ItemViewer";
 import UserCard from "../components/UserCard";
 import UserControls from "../components/UserControls";
-import Navbar from "../components/Navbar";
 
 const AuctionRoom = () => {
 	return (
 		<>
-		<Navbar />
 			<Grid
 				h="100vh"
 				templateRows="repeat(12, 1fr)"
@@ -19,7 +17,7 @@ const AuctionRoom = () => {
 				gap={1}
 			>
 				<GridItem rowSpan={4} colSpan={12} mt={2}>
-					<Card>
+					<Card p={2}>
 						<Flex direction="row" justifyContent="space-between">
 							<ItemViewer />
 							<ItemDetails />
@@ -33,7 +31,6 @@ const AuctionRoom = () => {
 				</GridItem>
 				<GridItem rowSpan={2} colSpan={12}>
 					<Flex direction="row" justifyContent="space-apart">
-						<UserCard />
 						<UserControls />
 					</Flex>
 				</GridItem>
