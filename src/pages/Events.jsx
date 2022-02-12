@@ -10,8 +10,11 @@ import {
 	Wrap,
 	WrapItem,
 	Box,
+	VStack,
+	InputRightAddon,
+	InputGroup,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
@@ -24,7 +27,6 @@ import {
 import DatePicker from "react-datepicker";
 import ItemsCard from "../components/ItemsCard";
 import "react-datepicker/dist/react-datepicker.css";
-import Navbar from "../components/Navbar";
 import { Card } from "../components/Card";
 
 const Events = () => {
@@ -49,6 +51,13 @@ const Events = () => {
 		status: "hold",
 		name: "Item Name",
 	});
+	const [allItems, setAllItems] = useState([]);
+
+	const addToItemList = () => {
+		setAllItems((prev) => {
+			return [...prev, item];
+		});
+	};
 
 	// useEffect(() => {
 	//   console.log(event);
@@ -159,25 +168,69 @@ const Events = () => {
 				<GridItem rowSpan={2} colSpan={3} bg="papayawhip">
 					<Card>
 						<Heading>Add Items</Heading>
+						<Divider my={2} />
 						<Flex direction="row" justifyContent="space-between">
-							{/* <ItemsCard
-							list={event.items}
-							addItem={addItem}
-							item={item}
-							handleItemchange={handleItemchange}
-						/> */}
+							<VStack>
+								<FormControl>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<Input
+											placeholder="1. Item Name"
+											id="name"
+											name="name"
+											type="text"
+											onChange={handleItemchange}
+										/>
+									</Flex>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<Input
+											placeholder="2. Item Description"
+											id="desc"
+											name="description"
+											type="text"
+											onChange={handleItemchange}
+										/>
+									</Flex>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<InputGroup size="md">
+											<Input
+												placeholder="3. Base Price"
+												id="name"
+												name="base"
+												type="number"
+												onChange={handleItemchange}
+											/>
+											<InputRightAddon children="$" />
+										</InputGroup>
+									</Flex>
+								</FormControl>
+								<Button onClick={addToItemList}>Add Item</Button>
+							</VStack>
+							<Divider orientation="vertical" />
+							<Box height="40vh" overflowY="scroll">
+								<VStack>
+									{allItems ? (
+										allItems.map((item) => {
+											return <ItemsCard item={item} />;
+										})
+									) : (
+										<>No items</>
+									)}
+								</VStack>
+							</Box>
 						</Flex>
 					</Card>
 				</GridItem>
-				<GridItem rowSpan={1} colSpan={3} bg="papayawhip">
-					<Button
-						isDisabled={event.items.length === 0 && event.time === ""}
-						colorScheme="teal"
-						size="md"
-						onClick={addEvent}
-					>
-						Start New Event
-					</Button>
+				<GridItem rowSpan={1} colSpan={3}>
+					<Flex direction="row" justifyContent="flex-end">
+						<Button
+							isDisabled={event.items.length === 0 && event.time === ""}
+							colorScheme="teal"
+							size="md"
+							onClick={addEvent}
+						>
+							Start New Event
+						</Button>
+					</Flex>
 				</GridItem>
 			</Grid>
 		</>
