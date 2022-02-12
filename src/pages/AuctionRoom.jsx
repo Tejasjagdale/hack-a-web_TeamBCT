@@ -31,7 +31,6 @@ const AuctionRoom = () => {
 				</GridItem>
 				<GridItem rowSpan={2} colSpan={12}>
 					<Flex direction="row" justifyContent="space-apart">
-						<UserCard />
 						<UserControls />
 					</Flex>
 				</GridItem>
