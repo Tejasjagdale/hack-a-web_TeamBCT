@@ -60,8 +60,6 @@ const Events = () => {
 		});
 	};
 
-	useEffect(addToItemList, []);
-
 	// useEffect(() => {
 	//   console.log(event);
 	// }, [event]);
@@ -171,6 +169,7 @@ const Events = () => {
 				<GridItem rowSpan={2} colSpan={3} bg="papayawhip">
 					<Card>
 						<Heading>Add Items</Heading>
+						<Divider my={2} />
 						<Flex direction="row" justifyContent="space-between">
 							<VStack>
 								<FormControl>
@@ -210,9 +209,13 @@ const Events = () => {
 							<Divider orientation="vertical" />
 							<Box height="40vh" overflowY="scroll">
 								<VStack>
-									{allItems.map((item) => {
-										return <ItemsCard item={item} />;
-									})}
+									{allItems ? (
+										allItems.map((item) => {
+											return <ItemsCard item={item} />;
+										})
+									) : (
+										<>No items</>
+									)}
 								</VStack>
 							</Box>
 						</Flex>
