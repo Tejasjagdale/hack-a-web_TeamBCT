@@ -1,4 +1,11 @@
-import { Center, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+	Center,
+	Flex,
+	Heading,
+	Text,
+	useColorMode,
+	VStack,
+} from "@chakra-ui/react";
 import React from "react";
 import { Card } from "./Card";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
@@ -14,6 +21,7 @@ const renderTime = (dimension, time) => {
 };
 
 const ItemDetails = () => {
+	const { colorMode } = useColorMode();
 	const minuteSeconds = 60;
 	const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
@@ -67,7 +75,9 @@ const ItemDetails = () => {
 							size={150}
 							isPlaying
 							duration={minuteSeconds}
-							colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+							{...(colorMode === "dark"
+								? { colors: ["#fff"] }
+								: { colors: ["#000"] })}
 							colorsTime={[7, 5, 2, 0]}
 						>
 							{({ elapsedTime, color }) => (
