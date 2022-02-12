@@ -18,59 +18,59 @@ import { useDisclosure } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
-  const { currentUser, logout } = useAuth();
-  const { onOpen} = useDisclosure();
+	const { currentUser, logout } = useAuth();
+	const { onOpen } = useDisclosure();
 
-  return (
-    <>
-      <chakra.header w="full" px={{ xl: 4 }} py={4} shadow="md">
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Flex>
-            <Link to="/">
-              <GiHeadbandKnot size={30} />
-              <VisuallyHidden>Mental-piece</VisuallyHidden>
-            </Link>
-            <Text fontSize="xl" fontWeight="bold" ml="2">
-              Auxn
-            </Text>
-          </Flex>
+	return (
+		<>
+			<chakra.header w="full" px={{ xl: 4 }} py={4} shadow="md">
+				<Flex alignItems="center" justifyContent="space-between" mx="auto">
+					<Flex>
+						<Link to="/">
+							<GiHeadbandKnot size={30} />
+							<VisuallyHidden>Mental-piece</VisuallyHidden>
+						</Link>
+						<Text fontSize="xl" fontWeight="bold" ml="2">
+							Auxn
+						</Text>
+					</Flex>
 
-          <HStack color="brand.500">
-            <Menu>
-              <MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
-                {currentUser ? currentUser.displayName : ""}
-              </MenuButton>
-              <MenuList>
-                <MenuItem>
-                  <Link to="/events">Events</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to="/allevents">All Events</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to="/auction">Auction</Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to="/items">Items</Link>
-                </MenuItem>
-                <MenuItem onClick={onOpen}>Profile</MenuItem>
-              </MenuList>
-            </Menu>
-            <Button
-              colorScheme="orange"
-              variant="solid"
-              onClick={(e) => {
-                e.preventDefault();
-                logout();
-              }}
-            >
-              Logout
-            </Button>
-          </HStack>
-        </Flex>
-      </chakra.header>
-    </>
-  );
+					<HStack color="brand.500">
+						<Menu>
+							<MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
+								{currentUser ? currentUser.displayName : ""}
+							</MenuButton>
+							<MenuList>
+								<Link to="/events">
+									<MenuItem>Events</MenuItem>
+								</Link>
+								<Link to="/allevents">
+									<MenuItem>All Events</MenuItem>
+								</Link>
+								<Link to="/auction">
+									<MenuItem>Auction</MenuItem>
+								</Link>
+								<Link to="/items">
+									<MenuItem>Items</MenuItem>
+								</Link>
+								<MenuItem onClick={onOpen}>Profile</MenuItem>
+							</MenuList>
+						</Menu>
+						<Button
+							colorScheme="orange"
+							variant="solid"
+							onClick={(e) => {
+								e.preventDefault();
+								logout();
+							}}
+						>
+							Logout
+						</Button>
+					</HStack>
+				</Flex>
+			</chakra.header>
+		</>
+	);
 };
 
 export default Navbar;
