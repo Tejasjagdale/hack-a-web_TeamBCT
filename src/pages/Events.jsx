@@ -27,7 +27,6 @@ import {
 import DatePicker from "react-datepicker";
 import ItemsCard from "../components/ItemsCard";
 import "react-datepicker/dist/react-datepicker.css";
-import Navbar from "../components/Navbar";
 import { Card } from "../components/Card";
 
 const Events = () => {
