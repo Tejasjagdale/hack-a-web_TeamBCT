@@ -44,7 +44,6 @@ const AuctionRoom = () => {
 				<GridItem rowSpan={3} colSpan={12}>
 					<Flex direction="row" justifyContent="space-apart">
 						<UserControls />
-						<Button onClick={getEventData}></Button>
 					</Flex>
 				</GridItem>
 			</Grid>
