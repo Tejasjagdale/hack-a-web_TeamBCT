@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { db } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import SignInCard from "../components/SignInCard";
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
 
 const UserSignin = () => {
 	const { signInWithGoogle } = useAuth();
@@ -22,7 +22,6 @@ const UserSignin = () => {
 					},
 					{ merge: true }
 				);
-
 				navigate("/events");
 			})
 			.catch((error) => console.log(error));

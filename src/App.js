@@ -7,27 +7,27 @@ import AuthContextProvider, { useAuth } from "./context/AuthContext";
 import UserSignin from "./pages/UserSignin";
 import Events from "./pages/Events";
 import Items from "./pages/Items";
+import { useEffect } from "react";
 
 function App() {
-  const { currentUser } = useAuth();
-
   return (
     <>
       <AuthContextProvider>
-        <div className="App">
-          <Layout>
-            <Routes>
-              <Route exact path="/" element={<UserSignin />} />
-              {/* <Route exact path="/auction" element={<PrivateRoute />}> */}
-                <Route exact path="/auction" element={<AuctionRoom />} />
-              {/* </Route> */}
-			  {/* <Route exact path="/events" element={<PrivateRoute />}> */}
-                <Route exact path="/events" element={<Events />} />
-                <Route exact path="/items" element={<Items />} />
-              {/* </Route> */}
-            </Routes>
-          </Layout>
-        </div>
+        <Layout>
+          <Routes>
+            <Route element={<Layout />} />
+            <Route exact path="/" element={<UserSignin />} />
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/auction" element={<AuctionRoom />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/events" element={<Events />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/items" element={<Items />} />
+            </Route>
+          </Routes>
+        </Layout>
       </AuthContextProvider>
     </>
   );

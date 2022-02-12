@@ -6,7 +6,6 @@ const Layout = (props) => {
 	return (
 		<>
 			<Navbar />
-
 			<Container maxW="container.xl">{props.children}</Container>
 		</>
 	);

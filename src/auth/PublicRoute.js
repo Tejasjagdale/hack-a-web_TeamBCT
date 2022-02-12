@@ -1,8 +1,9 @@
 import { Route, Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuthState } from "../context/AuthContext";
 
 const PublicRoute = ({ component: C, ...props }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuthState();
+  console.log("Unauthenticated Route", isAuthenticated);
   return (
     <Route
       {...props}
