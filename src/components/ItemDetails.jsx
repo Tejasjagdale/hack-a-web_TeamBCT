@@ -77,7 +77,7 @@ const ItemDetails = () => {
 							duration={minuteSeconds}
 							{...(colorMode === "dark"
 								? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
-								: { colors: ["#000"] })}
+								: { colors: ["#000", "#000", "#000", "#000"] })}
 							colorsTime={[7, 5, 0]}
 						>
 							{({ elapsedTime, color }) => (
