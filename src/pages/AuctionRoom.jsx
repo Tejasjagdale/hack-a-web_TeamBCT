@@ -6,12 +6,10 @@ import ItemDetails from "../components/ItemDetails";
 import ItemViewer from "../components/ItemViewer";
 import UserCard from "../components/UserCard";
 import UserControls from "../components/UserControls";
-import Navbar from "../components/Navbar";
 
 const AuctionRoom = () => {
 	return (
 		<>
-		<Navbar />
 			<Grid
 				h="100vh"
 				templateRows="repeat(12, 1fr)"
