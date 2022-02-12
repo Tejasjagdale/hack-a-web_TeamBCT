@@ -10,8 +10,11 @@ import {
 	Wrap,
 	WrapItem,
 	Box,
+	VStack,
+	InputRightAddon,
+	InputGroup,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
@@ -49,6 +52,15 @@ const Events = () => {
 		status: "hold",
 		name: "Item Name",
 	});
+	const [allItems, setAllItems] = useState([]);
+
+	const addToItemList = () => {
+		setAllItems((prev) => {
+			return [...prev, item];
+		});
+	};
+
+	useEffect(addToItemList, []);
 
 	// useEffect(() => {
 	//   console.log(event);
@@ -160,24 +172,63 @@ const Events = () => {
 					<Card>
 						<Heading>Add Items</Heading>
 						<Flex direction="row" justifyContent="space-between">
-							{/* <ItemsCard
-							list={event.items}
-							addItem={addItem}
-							item={item}
-							handleItemchange={handleItemchange}
-						/> */}
+							<VStack>
+								<FormControl>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">1. Item Name</FormLabel>
+										<Input
+											id="name"
+											name="name"
+											type="text"
+											onChange={handleItemchange}
+										/>
+									</Flex>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">2. Item Description</FormLabel>
+										<Input
+											id="desc"
+											name="description"
+											type="text"
+											onChange={handleItemchange}
+										/>
+									</Flex>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">3. Base Price</FormLabel>
+										<InputGroup size="sm">
+											<Input
+												id="name"
+												name="base"
+												type="number"
+												onChange={handleItemchange}
+											/>
+											<InputRightAddon children="$" />
+										</InputGroup>
+									</Flex>
+								</FormControl>
+								<Button onClick={addToItemList}>Add Item</Button>
+							</VStack>
+							<Divider orientation="vertical" />
+							<Box height="40vh" overflowY="scroll">
+								<VStack>
+									{allItems.map((item) => {
+										return <ItemsCard item={item} />;
+									})}
+								</VStack>
+							</Box>
 						</Flex>
 					</Card>
 				</GridItem>
-				<GridItem rowSpan={1} colSpan={3} bg="papayawhip">
-					<Button
-						isDisabled={event.items.length === 0 && event.time === ""}
-						colorScheme="teal"
-						size="md"
-						onClick={addEvent}
-					>
-						Start New Event
-					</Button>
+				<GridItem rowSpan={1} colSpan={3}>
+					<Flex direction="row" justifyContent="flex-end">
+						<Button
+							isDisabled={event.items.length === 0 && event.time === ""}
+							colorScheme="teal"
+							size="md"
+							onClick={addEvent}
+						>
+							Start New Event
+						</Button>
+					</Flex>
 				</GridItem>
 			</Grid>
 		</>
