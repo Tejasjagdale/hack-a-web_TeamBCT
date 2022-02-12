@@ -17,19 +17,19 @@ const AuctionRoom = () => {
 				gap={1}
 			>
 				<GridItem rowSpan={4} colSpan={12} mt={2}>
-					<Card p={2}>
+					<Card p={2} overflow="hidden">
 						<Flex direction="row" justifyContent="space-between">
 							<ItemViewer />
 							<ItemDetails />
 						</Flex>
 					</Card>
 				</GridItem>
-				<GridItem rowSpan={6} colSpan={12}>
-					<Card>
+				<GridItem rowSpan={5} colSpan={12}>
+					<Card overflow="hidden">
 						<Audience />
 					</Card>
 				</GridItem>
-				<GridItem rowSpan={2} colSpan={12}>
+				<GridItem rowSpan={3} colSpan={12}>
 					<Flex direction="row" justifyContent="space-apart">
 						<UserControls />
 					</Flex>
