@@ -1,4 +1,16 @@
-import { Button, Input } from "@chakra-ui/react";
+import {
+	Button,
+	Divider,
+	Flex,
+	FormHelperText,
+	Grid,
+	GridItem,
+	Heading,
+	Input,
+	Wrap,
+	WrapItem,
+	Box,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 // import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
@@ -13,6 +25,7 @@ import DatePicker from "react-datepicker";
 import ItemsCard from "../components/ItemsCard";
 import "react-datepicker/dist/react-datepicker.css";
 import Navbar from "../components/Navbar";
+import { Card } from "../components/Card";
 
 const Events = () => {
 	const { currentUser } = useAuth();
@@ -95,29 +108,78 @@ const Events = () => {
 
 	return (
 		<>
-			<FormControl>
-				<FormLabel>Event name</FormLabel>
-				<Input id="name" name="name" type="text" onChange={handleEventChange} />
-				<DatePicker
-					selected={eventDate}
-					onChange={(date) => handleEventDateChange(date)}
-					showTimeSelect
-				/>
-			</FormControl>
-			<Button
-				isDisabled={event.items.length === 0 && event.time === ""}
-				colorScheme="teal"
-				size="md"
-				onClick={addEvent}
+			<Grid
+				h="90vh"
+				templateRows="repeat(3, 1fr)"
+				templateColumns="repeat(3, 1fr)"
+				gap={4}
 			>
-				Start New Event
-			</Button>
-			<ItemsCard
-				list={event.items}
-				addItem={addItem}
-				item={item}
-				handleItemchange={handleItemchange}
-			/>
+				<GridItem rowSpan={1} colSpan={3} mt={5}>
+					<Card>
+						<Heading>Create an Event</Heading>
+						<Divider my={2} />
+						<Wrap spacing={10}>
+							<WrapItem>
+								<FormControl>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">1. Event Name</FormLabel>
+										<Input
+											id="name"
+											name="name"
+											type="text"
+											onChange={handleEventChange}
+										/>
+										<FormHelperText>
+											We'll never share your email.
+										</FormHelperText>
+									</Flex>
+								</FormControl>
+							</WrapItem>
+							<WrapItem>
+								<FormControl>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">2. Event Date</FormLabel>
+										<Box as="button" p={2} borderWidth="1px" borderRadius="lg">
+											<DatePicker
+												selected={eventDate}
+												onChange={(date) => handleEventDateChange(date)}
+												showTimeSelect
+											/>
+										</Box>
+
+										<FormHelperText>
+											We'll never share your email.
+										</FormHelperText>
+									</Flex>
+								</FormControl>
+							</WrapItem>
+						</Wrap>
+					</Card>
+				</GridItem>
+				<GridItem rowSpan={2} colSpan={3} bg="papayawhip">
+					<Card>
+						<Heading>Add Items</Heading>
+						<Flex direction="row" justifyContent="space-between">
+							{/* <ItemsCard
+							list={event.items}
+							addItem={addItem}
+							item={item}
+							handleItemchange={handleItemchange}
+						/> */}
+						</Flex>
+					</Card>
+				</GridItem>
+				<GridItem rowSpan={1} colSpan={3} bg="papayawhip">
+					<Button
+						isDisabled={event.items.length === 0 && event.time === ""}
+						colorScheme="teal"
+						size="md"
+						onClick={addEvent}
+					>
+						Start New Event
+					</Button>
+				</GridItem>
+			</Grid>
 		</>
 	);
 };
