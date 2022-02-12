@@ -21,7 +21,6 @@ import { collection, getDocs } from "firebase/firestore";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
-  const [utype, settype] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -41,7 +40,7 @@ const Navbar = () => {
           <HStack color="brand.500">
             <Menu>
               <MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
-                {currentUser.displayName}
+                {currentUser ? currentUser.displayName : ""}
               </MenuButton>
               <MenuList>
                 <MenuItem>
