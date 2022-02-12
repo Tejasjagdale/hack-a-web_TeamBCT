@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import {
-    Button,
-    chakra,
-    Flex,
-    Link,
-    Text,
-    VisuallyHidden,
+  Button,
+  chakra,
+  Flex,
+  Link,
+  Text,
+  VisuallyHidden,
 } from "@chakra-ui/react";
-import { GiHeadbandKnot } from 'react-icons/gi';
+import { GiHeadbandKnot } from "react-icons/gi";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
+  const { currentUser } = useAuth();
+
   return (
     <>
       <chakra.header w="full" px={{ xl: 4 }} py={4} shadow="md">
@@ -26,7 +29,7 @@ const Header = () => {
         </Flex>
       </chakra.header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
