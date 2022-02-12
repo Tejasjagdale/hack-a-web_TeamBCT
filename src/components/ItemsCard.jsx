@@ -3,21 +3,12 @@ import {
 	Box,
 	Button,
 	chakra,
-	Container,
-	Editable,
-	EditableInput,
-	EditablePreview,
 	Flex,
-	HStack,
-	Image,
-	Link,
-	SimpleGrid,
-	Stack,
 	useColorModeValue,
 	// Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { Card } from "./Card";
+import { AiFillDelete } from "react-icons/ai"
 
 const ItemsCard = (props) => {
 	return (
@@ -64,8 +55,9 @@ const ItemsCard = (props) => {
           <Button
 							colorScheme="red"
 							size="md"
+              name={props.key}
 							onClick={props.removeItem}
-              // leftIcon={}
+              leftIcon={<AiFillDelete/>}
 						>
 							Remove Item
 						</Button>
