@@ -8,6 +8,7 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
+	useColorMode,
 	VisuallyHidden,
 } from "@chakra-ui/react";
 import React from "react";
@@ -16,10 +17,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useDisclosure } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
 	const { currentUser, logout } = useAuth();
 	const { onOpen } = useDisclosure();
+	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
 		<>
@@ -36,6 +39,9 @@ const Navbar = () => {
 					</Flex>
 
 					<HStack color="brand.500">
+						<Button onClick={() => toggleColorMode()}>
+							{colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+						</Button>
 						<Menu>
 							<MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
 								{currentUser ? currentUser.displayName : ""}
