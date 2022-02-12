@@ -15,6 +15,7 @@ import {
 	InputGroup,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { BiTimer } from "react-icons/bi";
 // import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
@@ -37,6 +38,7 @@ const Events = () => {
 		created_by: currentUser.uid,
 		created_on: "",
 		items: [],
+    description:"",
 		current_users: [],
 		total_users: [],
 		name: "",
@@ -138,9 +140,6 @@ const Events = () => {
 											type="text"
 											onChange={handleEventChange}
 										/>
-										<FormHelperText>
-											We'll never share your email.
-										</FormHelperText>
 									</Flex>
 								</FormControl>
 							</WrapItem>
@@ -155,10 +154,19 @@ const Events = () => {
 												showTimeSelect
 											/>
 										</Box>
-
-										<FormHelperText>
-											We'll never share your email.
-										</FormHelperText>
+									</Flex>
+								</FormControl>
+							</WrapItem>
+              <WrapItem>
+								<FormControl>
+									<Flex direction="column" alignItems="flex-start" my={5}>
+										<FormLabel htmlFor="email">3. Event description</FormLabel>
+										<Input
+											id="desc"
+											name="description"
+											type="text"
+											onChange={handleEventChange}
+										/>
 									</Flex>
 								</FormControl>
 							</WrapItem>
@@ -193,13 +201,25 @@ const Events = () => {
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<InputGroup size="md">
 											<Input
-												placeholder="3. Base Price"
+												placeholder="3. Base Price in us dollars"
 												id="name"
 												name="base"
 												type="number"
 												onChange={handleItemchange}
 											/>
 											<InputRightAddon children="$" />
+										</InputGroup>
+									</Flex>
+                  <Flex direction="column" alignItems="flex-start" my={5}>
+										<InputGroup size="md">
+											<Input
+												placeholder="4. Bid Timer in sec"
+												id="timer"
+												name="timer"
+												type="number"
+												onChange={handleItemchange}
+											/>
+											<InputRightAddon children={<BiTimer />} />
 										</InputGroup>
 									</Flex>
 								</FormControl>

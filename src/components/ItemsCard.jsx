@@ -59,6 +59,17 @@ const ItemsCard = (props) => {
 					<Flex mt={3} alignItems="center" justifyContent="space-between">
 						Base Price : {props.item.base}
 					</Flex>
+
+          <Flex mt={3} alignItems="center" justifyContent="space-between">
+          <Button
+							colorScheme="red"
+							size="md"
+							onClick={props.removeItem}
+              // leftIcon={}
+						>
+							Remove Item
+						</Button>
+					</Flex>
 				</Box>
 			</Flex>
 		</>

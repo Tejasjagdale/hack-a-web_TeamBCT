@@ -45,6 +45,9 @@ const Navbar = () => {
                   <Link to="/events">Events</Link>
                 </MenuItem>
                 <MenuItem>
+                  <Link to="/allevents">All Events</Link>
+                </MenuItem>
+                <MenuItem>
                   <Link to="/auction">Auction</Link>
                 </MenuItem>
                 <MenuItem>
