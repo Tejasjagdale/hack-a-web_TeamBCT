@@ -15,8 +15,7 @@ const renderTime = (dimension, time) => {
 
 const ItemDetails = () => {
 	const minuteSeconds = 60;
-	const hourSeconds = 3600;
-	const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+	const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
 	return (
 		<Card w="full" h="100%" mx={5} mt={1} p={7}>
@@ -62,23 +61,25 @@ const ItemDetails = () => {
 						</Text>
 					</Flex>
 				</VStack>
-				<Center>
-					<CountdownCircleTimer
-						size={150}
-						isPlaying
-						duration={60}
-						colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-						colorsTime={[7, 5, 2, 0]}
-					>
-						{({ elapsedTime, color }) => (
-							<span style={{ color }}>
-								{renderTime(
-									"minutes",
-									getTimeMinutes(hourSeconds - elapsedTime)
-								)}
-							</span>
-						)}
-					</CountdownCircleTimer>
+				<Center mr={{ base: 4, lg: 10 }}>
+					<Flex direction="column" justifyContent="center" alignItems="center">
+						<CountdownCircleTimer
+							size={150}
+							isPlaying
+							duration={minuteSeconds}
+							colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+							colorsTime={[7, 5, 2, 0]}
+						>
+							{({ elapsedTime, color }) => (
+								<span style={{ color }}>
+									{renderTime("seconds", getTimeSeconds(elapsedTime))}
+								</span>
+							)}
+						</CountdownCircleTimer>
+						<Text fontSize="sm" mt={2} color="GrayText">
+							Until next bid
+						</Text>
+					</Flex>
 				</Center>
 			</Flex>
 		</Card>
