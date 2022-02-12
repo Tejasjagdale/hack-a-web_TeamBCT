@@ -18,11 +18,9 @@ import { useDisclosure } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { db } from "../utils/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import { loginContext } from "../App";
 
 const Navbar = () => {
-  const { logout } = useAuth();
-  const [currentUser, setCurrentUser] = useContext(loginContext);
+  const { currentUser, logout } = useAuth();
   const [utype, settype] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState({
@@ -42,14 +40,14 @@ const Navbar = () => {
               <VisuallyHidden>Mental-piece</VisuallyHidden>
             </Link>
             <Text fontSize="xl" fontWeight="bold" ml="2">
-              MindAid
+              Auxn
             </Text>
           </Flex>
 
           <HStack color="brand.500">
             <Menu>
               <MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
-                {currentUser.fname + currentUser.lname}
+                {currentUser.displayName}
               </MenuButton>
               <MenuList>
                 <MenuItem>
@@ -68,8 +66,7 @@ const Navbar = () => {
               colorScheme="orange"
               variant="solid"
               onClick={(e) => {
-                e.preventDefault()
-                setCurrentUser(null);
+                e.preventDefault();
                 logout();
               }}
             >
