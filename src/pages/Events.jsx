@@ -12,10 +12,13 @@ import {
 } from "@chakra-ui/react";
 import ItemsCard from "../components/ItemsCard";
 import { loginContext } from "../App";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Events = () => {
   const [currentUser, setCurrentUser] = useContext(loginContext);
   const ref = db.collection("events");
+  const [eventDate, setEventDate] = useState(new Date());
   const [event, setEvent] = useState({
     created_by: currentUser.uid,
     created_on: "",
@@ -56,7 +59,7 @@ const Events = () => {
     event_push = {
       ...event_push,
       created_by: currentUser.uid,
-      created_on: d.toLocaleString(),
+      created_on: d,
     };
     await ref.add(event_push);
   };
@@ -83,9 +86,14 @@ const Events = () => {
       <FormControl>
         <FormLabel>Event name</FormLabel>
         <Input id="name" name="name" type="text" onChange={handleEventChange} />
+        <DatePicker
+          selected={eventDate}
+          onChange={(date) => handleEventDateChange(date)}
+          showTimeSelect
+        />
       </FormControl>
       <Button
-        isDisabled={event.items.length === 0}
+        isDisabled={event.items.length === 0 && event.time === ""}
         colorScheme="teal"
         size="md"
         onClick={addEvent}
