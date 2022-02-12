@@ -173,34 +173,7 @@ const Audience = () => {
 						src="https://bit.ly/kent-c-dodds"
 					/>
 				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Ryan Florence"
-						src="https://bit.ly/ryan-florence"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Prosper Otemuyiwa"
-						src="https://bit.ly/prosper-baba"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Christian Nwamba"
-						src="https://bit.ly/code-beast"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Segun Adebayo"
-						src="https://bit.ly/sage-adebayo"
-					/>
-				</WrapItem>
+
 				<WrapItem>
 					<AvatarGroup size="lg" max={2}>
 						<Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />

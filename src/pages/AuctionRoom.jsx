@@ -17,7 +17,7 @@ const AuctionRoom = () => {
 				gap={1}
 			>
 				<GridItem rowSpan={4} colSpan={12} mt={2}>
-					<Card>
+					<Card p={2}>
 						<Flex direction="row" justifyContent="space-between">
 							<ItemViewer />
 							<ItemDetails />
