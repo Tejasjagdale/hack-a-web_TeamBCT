@@ -1,5 +1,5 @@
 import { Button, Input } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
@@ -11,9 +11,10 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import ItemsCard from "../components/ItemsCard";
+import { loginContext } from "../App";
 
 const Events = () => {
-  const { currentUser } = useAuth();
+  const [currentUser, setCurrentUser] = useContext(loginContext);
   const ref = db.collection("events");
   const [event, setEvent] = useState({
     created_by: currentUser.uid,
@@ -36,8 +37,8 @@ const Events = () => {
   let name, value;
 
   useEffect(() => {
-    console.log(event,item);
-  }, [event,item]);
+    console.log(event);
+  }, [event]);
 
   const handleEventChange = (e) => {
     name = e.target.name;
