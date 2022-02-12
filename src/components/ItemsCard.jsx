@@ -8,7 +8,7 @@ import {
 	// Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { AiFillDelete } from "react-icons/ai"
+import { AiFillDelete } from "react-icons/ai";
 
 const ItemsCard = (props) => {
 	return (
@@ -36,7 +36,7 @@ const ItemsCard = (props) => {
 						fontWeight="bold"
 						color={useColorModeValue("gray.800", "white")}
 					>
-						{props.item.name}
+						{props.item.id}
 					</chakra.h1>
 
 					<chakra.p
@@ -51,13 +51,13 @@ const ItemsCard = (props) => {
 						Base Price : {props.item.base}
 					</Flex>
 
-          <Flex mt={3} alignItems="center" justifyContent="space-between">
-          <Button
+					<Flex mt={3} alignItems="center" justifyContent="space-between">
+						<Button
 							colorScheme="red"
 							size="md"
-              name={props.key}
+							id={props.id}
 							onClick={props.removeItem}
-              leftIcon={<AiFillDelete/>}
+							leftIcon={<AiFillDelete />}
 						>
 							Remove Item
 						</Button>

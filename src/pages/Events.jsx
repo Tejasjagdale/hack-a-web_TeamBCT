@@ -18,7 +18,8 @@ import React, { useEffect, useState } from "react";
 import { BiTimer } from "react-icons/bi";
 // import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/AuthContext";
-import { db } from "../utils/firebase-config";
+import { rdb } from "../utils/firebase-config";
+import { push, ref, set } from "firebase/database";
 import {
 	FormControl,
 	FormLabel,
@@ -32,13 +33,13 @@ import { Card } from "../components/Card";
 
 const Events = () => {
 	const { currentUser } = useAuth();
-	const ref = db.collection("events");
+
 	const [eventDate, setEventDate] = useState(new Date());
 	const [event, setEvent] = useState({
 		created_by: currentUser.uid,
 		created_on: "",
 		items: [],
-    description:"",
+		description: "",
 		current_users: [],
 		total_users: [],
 		name: "",
@@ -47,19 +48,40 @@ const Events = () => {
 	let name, value;
 	const [item, setItem] = useState({
 		photos: [],
-		base: "0 rs",
-		description: "Item Description in 10-20 words :)",
-		timer: "0 sec",
+		base: "",
+		description: "",
+		timer: "",
 		status: "hold",
-		name: "Item Name",
+		name: "",
 	});
 	const [allItems, setAllItems] = useState([]);
 
 	const addToItemList = () => {
-    item.tempid = allItems.length + 1;
-		setAllItems((prev) => {
-			return [...prev, item];
+		push(ref(rdb, "items/"), item).then((res) => {
+			const tempItem = item;
+			tempItem.id = res.key;
+			setAllItems((prev) => {
+				return [...prev, tempItem];
+			});
+			setItem({
+				photos: [],
+				base: "",
+				description: "",
+				timer: "",
+				status: "hold",
+				name: "",
+			});
 		});
+	};
+
+	const removeItem = (e) => {
+		e.preventDefault();
+		set(ref(rdb, "items/" + e.target.id), null).catch((err) => {
+			console.log(err);
+		});
+		let temp = allItems;
+		temp.splice(e.target.id, 1);
+		setAllItems(JSON.parse(JSON.stringify(temp)));
 	};
 
 	// useEffect(() => {
@@ -98,15 +120,7 @@ const Events = () => {
 			created_by: currentUser.uid,
 			created_on: d,
 		};
-		await ref.add(event_push);
-	};
-
-	const addItem = async (e) => {
-		e.preventDefault();
-		item.id = event.items.length + 1;
-		setEvent((prevState) => {
-			return { ...prevState, ["items"]: [...prevState.items, item] };
-		});
+		await set(ref(rdb, "events/"), event_push);
 	};
 
 	const handleItemchange = (e) => {
@@ -117,13 +131,6 @@ const Events = () => {
 			return { ...prevState, [name]: value };
 		});
 	};
-
-  const removeItem = (e)=>{
-    e.preventDefault()
-    let temp = allItems
-    temp = temp.splice(e.target.name,1)
-    setAllItems(temp)
-  }
 
 	return (
 		<>
@@ -143,6 +150,7 @@ const Events = () => {
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<FormLabel htmlFor="email">1. Event Name</FormLabel>
 										<Input
+											value={event.name}
 											id="name"
 											name="name"
 											type="text"
@@ -165,11 +173,12 @@ const Events = () => {
 									</Flex>
 								</FormControl>
 							</WrapItem>
-              <WrapItem>
+							<WrapItem>
 								<FormControl>
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<FormLabel htmlFor="email">3. Event description</FormLabel>
 										<Input
+											value={event.description}
 											id="desc"
 											name="description"
 											type="text"
@@ -190,7 +199,9 @@ const Events = () => {
 								<FormControl>
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<Input
+											required
 											placeholder="1. Item Name"
+											value={item.name}
 											id="name"
 											name="name"
 											type="text"
@@ -199,6 +210,8 @@ const Events = () => {
 									</Flex>
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<Input
+											required
+											value={item.description}
 											placeholder="2. Item Description"
 											id="desc"
 											name="description"
@@ -209,6 +222,8 @@ const Events = () => {
 									<Flex direction="column" alignItems="flex-start" my={5}>
 										<InputGroup size="md">
 											<Input
+												required
+												value={item.base}
 												placeholder="3. Base Price in us dollars"
 												id="name"
 												name="base"
@@ -218,9 +233,11 @@ const Events = () => {
 											<InputRightAddon children="$" />
 										</InputGroup>
 									</Flex>
-                  <Flex direction="column" alignItems="flex-start" my={5}>
+									<Flex direction="column" alignItems="flex-start" my={5}>
 										<InputGroup size="md">
 											<Input
+												required
+												value={item.timer}
 												placeholder="4. Bid Timer in sec"
 												id="timer"
 												name="timer"
@@ -237,8 +254,15 @@ const Events = () => {
 							<Box height="40vh" overflowY="scroll">
 								<VStack>
 									{allItems ? (
-										allItems.map((item) => {
-											return <ItemsCard key={item.tempid} item={item}  removeItem={removeItem} />;
+										allItems.map((item, index) => {
+											return (
+												<ItemsCard
+													id={item.id}
+													key={index}
+													item={item}
+													removeItem={removeItem}
+												/>
+											);
 										})
 									) : (
 										<>No items</>
@@ -251,7 +275,7 @@ const Events = () => {
 				<GridItem rowSpan={1} colSpan={3}>
 					<Flex direction="row" justifyContent="flex-end">
 						<Button
-							isDisabled={event.items.length === 0 && event.time === ""}
+							isDisabled={event.items.length === 0 || event.time === ""}
 							colorScheme="teal"
 							size="md"
 							onClick={addEvent}
