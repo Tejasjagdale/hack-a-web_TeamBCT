@@ -21,7 +21,6 @@ function App() {
     <>
       <loginContext.Provider value={[loginDetails, setloginDetails]}>
         <AuthContextProvider>
-          <div className="App">
             <Layout>
               <Routes>
                 <Route exact path="/" element={<UserSignin />} />
@@ -36,7 +35,6 @@ function App() {
                 </Route>
               </Routes>
             </Layout>
-          </div>
         </AuthContextProvider>
       </loginContext.Provider>
     </>

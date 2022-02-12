@@ -49,7 +49,7 @@ const Navbar = () => {
           <HStack color="brand.500">
             <Menu>
               <MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
-                tejas jagdale
+                {currentUser.fname + currentUser.lname}
               </MenuButton>
               <MenuList>
                 <MenuItem>

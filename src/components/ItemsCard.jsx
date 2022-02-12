@@ -160,7 +160,7 @@ const ItemsCard = (props) => {
                     />
                   </Editable>
                   <Button maxWidth="100px" my={2}>
-                    Click me!
+                    Remove Item!
                   </Button>
                 </Stack>
               </Box>

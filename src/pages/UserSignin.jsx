@@ -3,7 +3,7 @@ import { db } from "../utils/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import SignInCard from "../components/SignInCard";
-import Navbar from "../components/Navbar";
+import Header from "../components/Header"
 import { loginContext } from "../App";
 
 const UserSignin = () => {
@@ -40,7 +40,7 @@ const UserSignin = () => {
 
   return (
     <>
-      <Navbar />
+      <Header />
       <SignInCard signIn={signIn} />
     </>
   );
