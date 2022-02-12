@@ -1,0 +1,39 @@
+.swiper {
+	width: 75vw;
+	height: 30vh;
+	border-radius: 10px;
+}
+
+.swiper-slide {
+	background-position: center;
+	background-size: cover;
+}
+
+.swiper-slide img {
+	display: inline-block;
+	width: 100%;
+	height: auto;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	background: rgba(0, 0, 0, 0.7);
+
+	border-radius: 50%;
+	color: #fff;
+	font-weight: 700;
+	outline: 0;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.swiper-button-next::after {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.swiper-button-prev::after {
+	font-size: 20px;
+}

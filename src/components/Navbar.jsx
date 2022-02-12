@@ -1,14 +1,14 @@
 import {
-  Button,
-  chakra,
-  Flex,
-  HStack,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  VisuallyHidden,
+	Button,
+	chakra,
+	Flex,
+	HStack,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+	VisuallyHidden,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { GiHeadbandKnot } from "react-icons/gi";
@@ -23,12 +23,6 @@ const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const [utype, settype] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [data, setData] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-  });
-  const ref = db.collection("counsellors");
 
   return (
     <>
