@@ -1,5 +1,5 @@
 import {
-  AspectRatio,
+  // AspectRatio,
   Box,
   Button,
   Container,
@@ -10,7 +10,7 @@ import {
   Link,
   SimpleGrid,
   Stack,
-  Text,
+  // Text,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -66,18 +66,12 @@ const ItemsCard = (props) => {
 
               <Editable my={2} color="gray.500" value={props.item.base_Prize}>
                 <EditablePreview />
-                <EditableInput
-                  name="base_Prize"
-                  onChange={props.handleItemchange}
-                />
+                <EditableInput name="base" onChange={props.handleItemchange} />
               </Editable>
 
               <Editable my={2} color="gray.500" value={props.item.bid_timer}>
                 <EditablePreview />
-                <EditableInput
-                  name="bid_timer"
-                  onChange={props.handleItemchange}
-                />
+                <EditableInput name="timer" onChange={props.handleItemchange} />
               </Editable>
 
               <Button colorScheme="red" size="md" onClick={props.addItem}>
@@ -136,11 +130,7 @@ const ItemsCard = (props) => {
                     />
                   </Editable>
 
-                  <Editable
-                    my={2}
-                    color="gray.500"
-                    value={data.base_Prize}
-                  >
+                  <Editable my={2} color="gray.500" value={data.base_Prize}>
                     <EditablePreview />
                     <EditableInput
                       name="base_Prize"
@@ -148,11 +138,7 @@ const ItemsCard = (props) => {
                     />
                   </Editable>
 
-                  <Editable
-                    my={2}
-                    color="gray.500"
-                    value={data.bid_timer}
-                  >
+                  <Editable my={2} color="gray.500" value={data.bid_timer}>
                     <EditablePreview />
                     <EditableInput
                       name="bid_timer"
