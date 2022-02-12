@@ -7,7 +7,8 @@ import AuthContextProvider, { useAuth } from "./context/AuthContext";
 import UserSignin from "./pages/UserSignin";
 import Events from "./pages/Events";
 import Items from "./pages/Items";
-import { useEffect } from "react";
+import AllEvents from "./pages/AllEvents";
+import { PublicRoute } from "./auth/PublicRoute";
 
 function App() {
   return (
@@ -16,9 +17,14 @@ function App() {
         <Layout>
           <Routes>
             <Route element={<Layout />} />
-            <Route exact path="/" element={<UserSignin />} />
+            {/* <Route element={<PublicRoute />}> */}
+              <Route exact path="/" element={<UserSignin />} />
+            {/* </Route> */}
             <Route element={<PrivateRoute />}>
               <Route exact path="/auction" element={<AuctionRoom />} />
+            </Route>
+            <Route element={<PrivateRoute />}>
+              <Route exact path="/allevents" element={<AllEvents />} />
             </Route>
             <Route element={<PrivateRoute />}>
               <Route exact path="/events" element={<Events />} />
