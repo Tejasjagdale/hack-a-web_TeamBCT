@@ -22,7 +22,7 @@ const renderTime = (dimension, time) => {
 
 const ItemDetails = () => {
 	const { colorMode } = useColorMode();
-	const minuteSeconds = 60;
+	const minuteSeconds = 20;
 	const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
 	return (
@@ -78,7 +78,7 @@ const ItemDetails = () => {
 							{...(colorMode === "dark"
 								? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
 								: { colors: ["#000"] })}
-							colorsTime={[7, 5, 2, 0]}
+							colorsTime={[7, 5, 0]}
 						>
 							{({ elapsedTime, color }) => (
 								<span style={{ color }}>
