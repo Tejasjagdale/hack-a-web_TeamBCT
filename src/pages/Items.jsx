@@ -1,5 +1,16 @@
 import React from "react";
+import { db } from "../utils/firebase-config";
 import Navbar from "../components/Navbar";
+import { doc, setDoc } from "firebase/firestore";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+} from "@chakra-ui/react";
+import { useAuth } from "../context/AuthContext";
 
 const Items = () => {
   const { currentUser } = useAuth();
@@ -13,7 +24,7 @@ const Items = () => {
       photos: ["blob1"],
       base: 500,
       description: "this is a good item plzzz buy.",
-      bid_timer: seconds,
+      bid_timer: 10,
       status: "hold",
     };
 
