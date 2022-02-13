@@ -45,6 +45,7 @@ const Events = () => {
 		photo: "",
 		name: "",
 		time: "",
+		status: "hold",
 	});
 	let name, value;
 	const [item, setItem] = useState({
