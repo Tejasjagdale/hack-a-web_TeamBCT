@@ -25,7 +25,7 @@ const UserControls = (props) => {
     let temp = currentItem;
     temp.currentbid = `$${userBid}`;
     setCurrentItem(JSON.parse(JSON.stringify(temp)));
-    let d =  new Date();
+    let time = Date.now();
 
     let data = {
       event_id: currentItem.id,
@@ -33,7 +33,7 @@ const UserControls = (props) => {
       amount: userBid,
       by: currentUser.uid,
       status: "current",
-      timestamp: d
+      timestamp: time
     }
 
     push(ref(rdb, "bids/"), data).then((res) => {
