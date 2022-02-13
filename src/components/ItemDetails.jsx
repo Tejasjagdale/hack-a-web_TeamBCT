@@ -6,7 +6,7 @@ import {
   useColorMode,
   VStack,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card } from "./Card";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "../styles/timer.css";
@@ -28,13 +28,23 @@ const ItemDetails = (props) => {
   const [currentItem, setCurrentItem] = useContext(EventContext);
   const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
   const itemSold = () => {
-    console.log("item sold");
-    const updates = {};
-    currentItem.status = "sold";
-    updates["/items/" + currentItem.id] = currentItem;
-    update(ref(rdb), updates);
-    setCurrentItem(null);
+    if (currentItem.status === "ongoing") {
+      console.log("item sold");
+      const updates = {};
+      currentItem.status = "sold";
+      updates["/items/" + currentItem.id] = currentItem;
+      update(ref(rdb), updates);
+      setCurrentItem(null);
+    }
   };
+
+  useEffect(() => {
+    if (currentItem === null) {
+      console.log("Current item is now null");
+      props.nextItemFunc();
+    }
+  }, [currentItem]);
+
   const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
   return (
