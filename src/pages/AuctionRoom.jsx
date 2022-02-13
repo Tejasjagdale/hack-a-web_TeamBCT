@@ -1,5 +1,5 @@
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Audience from "../components/Audience";
 import { Card } from "../components/Card";
@@ -9,10 +9,14 @@ import firebase from "firebase/compat/app";
 // import 'firebase/compat/auth'
 import "firebase/compat/firestore";
 import ItemParent from "../components/ItemParent";
+import EventOrganizer from "../components/EventOrganizer";
+export const EventContext = createContext({});
 
 const AuctionRoom = () => {
   let { id } = useParams();
+  const [showItem, setShowItem] = useState(false);
   const [eventObj, setEventObj] = useState({});
+  const [currentItem, setCurrentItem] = useState(null);
 
   const getEventData = async () => {
     const ref = db.collection("events").doc(id);
@@ -34,35 +38,50 @@ const AuctionRoom = () => {
       });
   }, []);
 
-  //   useEffect(() => console.log(eventObj), [eventObj]);
+  // useEffect(() => console.log(showItem), [showItem]);
+  useEffect(() => console.log(currentItem), [currentItem]);
+
   return (
     <>
-      <Grid
-        h="100vh"
-        templateRows="repeat(12, 1fr)"
-        templateColumns="repeat(12, 1fr)"
-        gap={1}
-      >
-        <GridItem rowSpan={4} colSpan={12} mt={2}>
-          <Card p={2} overflow="hidden">
-            <Flex direction="row" justifyContent="space-between">
-              {eventObj.items && <ItemParent itemsArr={eventObj.items} />}
+      <EventContext.Provider value={[currentItem, setCurrentItem]}>
+        <Grid
+          h="100vh"
+          templateRows="repeat(12, 1fr)"
+          templateColumns="repeat(12, 1fr)"
+          gap={1}
+        >
+          <GridItem rowSpan={4} colSpan={12} mt={2}>
+            <Card p={2} overflow="hidden">
+              <Flex direction="row" justifyContent="space-between">
+                {eventObj.items && (
+                  <ItemParent
+                    itemsArr={eventObj.items}
+                    currentItem={currentItem}
+                    setCurrentItem={setCurrentItem}
+                    showItem={showItem}
+                  />
+                )}
+              </Flex>
+            </Card>
+          </GridItem>
+          <GridItem rowSpan={5} colSpan={12}>
+            <Card overflow="hidden">
+              {eventObj.total_users && (
+                <Audience usersArr={eventObj.total_users} />
+              )}
+            </Card>
+          </GridItem>
+          <GridItem rowSpan={3} colSpan={12}>
+            <Flex direction="row" justifyContent="space-apart">
+              <UserControls
+                setShowItem={setShowItem}
+                currentbid={currentItem ? currentItem.currentbid : 100}
+              />
+              <EventOrganizer setShowItem={setShowItem} />
             </Flex>
-          </Card>
-        </GridItem>
-        <GridItem rowSpan={5} colSpan={12}>
-          <Card overflow="hidden">
-            {eventObj.total_users && (
-              <Audience usersArr={eventObj.total_users} />
-            )}
-          </Card>
-        </GridItem>
-        <GridItem rowSpan={3} colSpan={12}>
-          <Flex direction="row" justifyContent="space-apart">
-            <UserControls />
-          </Flex>
-        </GridItem>
-      </Grid>
+          </GridItem>
+        </Grid>
+      </EventContext.Provider>
     </>
   );
 };

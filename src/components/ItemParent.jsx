@@ -1,30 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ItemDetails from "./ItemDetails";
 import ItemViewer from "./ItemViewer";
 import { rdb } from "../utils/firebase-config";
-import { onValue, ref } from "firebase/database";
+import { child, onValue, push, ref, update } from "firebase/database";
+import { EventContext } from "../pages/AuctionRoom";
 
-const ItemParent = ({ itemsArr }) => {
-  const [eventItems, setEventItems] = useState({});
+const ItemParent = (props) => {
+  const [eventItems, setEventItems] = useState([]);
+  const [currentItem, setCurrentItem] = useContext(EventContext);
+
   useEffect(() => {
     const itemsRef = ref(rdb, "items/");
     onValue(itemsRef, (snapshot) => {
       const itemsDataObj = snapshot.val();
-      let tempObj = {};
+      let tempObj = [];
       Object.keys(itemsDataObj).map((ele, index) => {
-        if (itemsArr.includes(ele)) {
-          tempObj[ele] = itemsDataObj[ele];
+        if (props.itemsArr.includes(ele)) {
+          tempObj.push({ ...itemsDataObj[ele], id: ele });
         }
       });
-      console.log(tempObj);
       setEventItems(tempObj);
     });
   }, []);
 
+  useEffect(() => {
+    nextItem();
+  }, [props.showItem]);
+
+  const nextItem = () => {
+    console.log(eventItems);
+    eventItems.every(function (element, index) {
+      if (element.status === "hold") {
+        const newPostKey = push(child(ref(rdb), "items/")).key;
+
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        const updates = {};
+        element.status = "ongoing";
+        element.currentbid = "----";
+        updates["/items/" + newPostKey] = element;
+        update(ref(rdb), updates);
+        setCurrentItem(element);
+        return false;
+      } else {
+        return true;
+      }
+    });
+  };
+
   return (
     <>
       <ItemViewer />
-      <ItemDetails />
+      <ItemDetails
+        totalItems={eventItems.length}
+      />
     </>
   );
 };

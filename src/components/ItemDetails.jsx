@@ -6,10 +6,11 @@ import {
   useColorMode,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Card } from "./Card";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "../styles/timer.css";
+import { EventContext } from "../pages/AuctionRoom";
 
 const renderTime = (dimension, time) => {
   return (
@@ -20,9 +21,14 @@ const renderTime = (dimension, time) => {
   );
 };
 
-const ItemDetails = () => {
+const ItemDetails = (props) => {
   const { colorMode } = useColorMode();
-  const minuteSeconds = 20;
+  const [currentItem, setCurrentItem] = useContext(EventContext);
+  const minuteSeconds = parseInt(currentItem ? currentItem.timer : 0);
+  const itemSold = (e) => {
+    console.log("item sold");
+    setCurrentItem(null)
+  };
   const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
   return (
@@ -34,14 +40,14 @@ const ItemDetails = () => {
             justifyContent="left"
             alignItems="flex-start"
           >
-            <Text fontSize="md">Item(s) 2/5</Text>
+            <Text fontSize="md">{`Item(s) 2/${props.totalItems}`}</Text>
           </Flex>
           <Flex
             direction="column"
             justifyContent="left"
             alignItems="flex-start"
           >
-            <Heading>Mona Lisa </Heading>
+            <Heading>{currentItem ? currentItem.name : ""}</Heading>
             <Text fontSize="sm" color="GrayText">
               Current Item
             </Text>
@@ -51,7 +57,7 @@ const ItemDetails = () => {
             justifyContent="left"
             alignItems="flex-start"
           >
-            <Heading>$5000</Heading>
+            <Heading>{currentItem ? currentItem.currentbid : ""}</Heading>
             <Text fontSize="sm" color="GrayText">
               Current Bid
             </Text>
@@ -62,7 +68,7 @@ const ItemDetails = () => {
             alignItems="flex-start"
           >
             <Text fontSize="xl" fontWeight={800}>
-              $500
+              {currentItem ? currentItem.base : ""}
             </Text>
             <Text fontSize="sm" color="GrayText">
               Base Price
@@ -83,6 +89,7 @@ const ItemDetails = () => {
               {({ elapsedTime, color }) => (
                 <span style={{ color }}>
                   {renderTime("seconds", getTimeSeconds(elapsedTime))}
+                  {getTimeSeconds(elapsedTime) === 0 ? itemSold() : null}
                 </span>
               )}
             </CountdownCircleTimer>
