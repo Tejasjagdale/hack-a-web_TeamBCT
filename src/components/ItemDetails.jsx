@@ -53,7 +53,7 @@ const ItemDetails = (props) => {
 
 	useEffect(() => {
 		if (currentItem === null) {
-			console.log("Current item is now null");
+			// console.log("Current item is now null");
 			props.nextItemFunc();
 		}
 	}, [currentItem]);

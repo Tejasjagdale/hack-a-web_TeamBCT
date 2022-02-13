@@ -52,7 +52,7 @@ const UserControls = (props) => {
 				<Button onClick={() => setUserBid(userBid + 1000)}> + 1000</Button>
 				<Button onClick={() => setUserBid(userBid + 1500)}> + 1500</Button>
 				<Button onClick={() => setUserBid(userBid + 5000)}> + 5000</Button>
-				<Input w="20vw" type="number" placeholder="Enter Custom Bid"></Input>
+				<Input w="25vw" type="number" placeholder="Enter Custom Bid"></Input>
 				<Box borderWidth="1px" rounded="lg" px={10} py={3}>
 					<VStack>
 						<Flex direction="row" justifyContent="left" alignItems="center">
