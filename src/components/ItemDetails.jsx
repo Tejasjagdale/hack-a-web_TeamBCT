@@ -7,7 +7,7 @@ import {
 	useColorMode,
 	VStack,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "./Card";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "../styles/timer.css";
@@ -28,6 +28,7 @@ const ItemDetails = (props) => {
 	console.log(props.eventStatus);
 	const { colorMode } = useColorMode();
 	const [currentItem, setCurrentItem] = useContext(EventContext);
+	const [durationState, setDurationState] = useState(0);
 	const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
 	const itemSold = () => {
 		if (currentItem.status === "ongoing") {
@@ -39,6 +40,16 @@ const ItemDetails = (props) => {
 			setCurrentItem(null);
 		}
 	};
+
+	const getDuration = (itemTimer, bidTime) => {
+		const duration = itemTimer * 1000 - (Date.now() - bidTime);
+		console.log("Duration", duration / 1000);
+		return duration / 1000;
+	};
+
+	// useEffect(() => {
+
+	// }, [bid])
 
 	useEffect(() => {
 		if (currentItem === null) {
@@ -58,7 +69,7 @@ const ItemDetails = (props) => {
 						justifyContent="left"
 						alignItems="flex-start"
 					>
-						<Text fontSize="md">{`Item(s) 2/${props.totalItems}`}</Text>
+						<Text fontSize="md">{`Item(s) 2/${props.totalItems.length}`}</Text>
 					</Flex>
 					<Flex
 						direction="column"
@@ -98,20 +109,13 @@ const ItemDetails = (props) => {
 						<CountdownCircleTimer
 							size={150}
 							isPlaying={props.eventStatus === "started" && true}
-							duration={minuteSeconds}
+							duration={() => getDuration(currentItem.timer, 1644743640933)}
 							{...(colorMode === "dark"
 								? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
 								: { colors: ["#000", "#000", "#000", "#000"] })}
 							colorsTime={[7, 5, 0]}
 						>
-							{({ elapsedTime, color }) => (
-								<span style={{ color }}>
-									{renderTime("seconds", getTimeSeconds(elapsedTime))}
-									{currentItem && getTimeSeconds(elapsedTime) === 0
-										? itemSold()
-										: null}
-								</span>
-							)}
+							{({ remainingTime }) => remainingTime}
 						</CountdownCircleTimer>
 						<Text fontSize="sm" mt={2} color="GrayText">
 							Until next bid

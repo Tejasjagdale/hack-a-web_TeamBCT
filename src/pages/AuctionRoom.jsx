@@ -147,6 +147,7 @@ const AuctionRoom = () => {
 									{eventObj.items && (
 										<ItemParent
 											itemsArr={eventObj.items}
+                      
 											eventStatus={eventObj.status}
 											currentItem={currentItem}
 											setCurrentItem={setCurrentItem}
