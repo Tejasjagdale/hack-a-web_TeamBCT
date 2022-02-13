@@ -147,7 +147,6 @@ const AuctionRoom = () => {
 									{eventObj.items && (
 										<ItemParent
 											itemsArr={eventObj.items}
-                      
 											eventStatus={eventObj.status}
 											currentItem={currentItem}
 											setCurrentItem={setCurrentItem}
@@ -168,6 +167,7 @@ const AuctionRoom = () => {
 						<GridItem rowSpan={3} colSpan={12}>
 							<Flex direction="row" justifyContent="space-apart">
 								<UserControls
+									eventId={id}
 									setShowItem={setShowItem}
 									currentbid={currentItem ? currentItem.currentbid : 100}
 								/>

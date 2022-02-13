@@ -16,33 +16,34 @@ import { rdb } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
 
 const UserControls = (props) => {
-  const {currentUser} =  useAuth()
-  const [userBid, setUserBid] = useState(props.currentbid);
-  const [currentItem, setCurrentItem] = useContext(EventContext);
-  const [beatenBid,setBeatenBid] =  useState(null);
+	console.log(props);
+	const { currentUser } = useAuth();
+	const [userBid, setUserBid] = useState(props.currentbid);
+	const [currentItem, setCurrentItem] = useContext(EventContext);
 
-  const newBid = () => {
-    let temp = currentItem;
-    temp.currentbid = `$${userBid}`;
-    setCurrentItem(JSON.parse(JSON.stringify(temp)));
-    let time = Date.now();
+	const [beatenBid, setBeatenBid] = useState(null);
 
-    let data = {
-      event_id: currentItem.id,
-      item_id: props.eventid,
-      amount: userBid,
-      by: currentUser.uid,
-      status: "current",
-      timestamp: time
-    }
+	const newBid = () => {
+		let temp = currentItem;
+		temp.currentbid = `$${userBid}`;
+		setCurrentItem(JSON.parse(JSON.stringify(temp)));
+		let time = Date.now();
 
-    push(ref(rdb, "bids/"), data).then((res) => {
-      const tempItem = data;
-      tempItem.id = res.key;
-      setBeatenBid(tempItem)
-    })
+		let data = {
+			event_id: props.eventId,
+			item_id: currentItem.id,
+			amount: userBid,
+			by: currentUser.uid,
+			status: "current",
+			timestamp: time,
+		};
 
-  };
+		push(ref(rdb, "bids/"), data).then((res) => {
+			const tempItem = data;
+			tempItem.id = res.key;
+			setBeatenBid(tempItem);
+		});
+	};
 
 	return (
 		<Card w="full" h="full">
