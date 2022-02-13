@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Audience from "../components/Audience";
 import { Card } from "../components/Card";
-import ItemDetails from "../components/ItemDetails";
-import ItemViewer from "../components/ItemViewer";
 import UserControls from "../components/UserControls";
 import { db } from "../utils/firebase-config";
 import firebase from "firebase/compat/app";
 // import 'firebase/compat/auth'
 import "firebase/compat/firestore";
+import ItemParent from "../components/ItemParent";
 
 const AuctionRoom = () => {
   let { id } = useParams();
@@ -30,13 +29,12 @@ const AuctionRoom = () => {
       .where(firebase.firestore.FieldPath.documentId(), "==", id)
       .onSnapshot(function (snapshot) {
         snapshot.docChanges().forEach(function (change) {
-          console.log(change.doc.data());
           setEventObj(change.doc.data());
         });
       });
   }, []);
 
-  useEffect(() => console.log(eventObj), [eventObj]);
+  //   useEffect(() => console.log(eventObj), [eventObj]);
   return (
     <>
       <Grid
@@ -48,8 +46,7 @@ const AuctionRoom = () => {
         <GridItem rowSpan={4} colSpan={12} mt={2}>
           <Card p={2} overflow="hidden">
             <Flex direction="row" justifyContent="space-between">
-              <ItemViewer />
-              <ItemDetails />
+              {eventObj.items && <ItemParent itemsArr={eventObj.items} />}
             </Flex>
           </Card>
         </GridItem>
