@@ -23,6 +23,7 @@ const AuctionRoom = () => {
 	const [eventObj, setEventObj] = useState({});
 	const [currentItem, setCurrentItem] = useState(null);
 	const [eventItems, setEventItems] = useState([]);
+	const [currentItemBids, setCurrentItemBids] = useState([]);
 
 	const getEventData = async () => {
 		const ref = db.collection("events").doc(id);
@@ -47,9 +48,18 @@ const AuctionRoom = () => {
 		}
 	}, [eventObj]);
 
-	//   useEffect(() => {
-	//     getEventData();
-	//   }, []);
+	// useEffect(() => {
+	// 	const bidRef = ref(rdb, "bids/");
+	// 	onValue(bidRef, (snapshot) => {
+	// 		const bidsDataObj = snapshot.val();
+	// 		let tempObj = [];
+	// 		Object.keys(bidsDataObj).map((ele, index) => {
+	// 			if (ele.item_id === currentItem.id) {
+	// 				console.log(ele.item_id);
+	// 			}
+	// 		});
+	// 	});
+	// }, []);
 
 	useEffect(() => {
 		db.collection("events")
@@ -63,7 +73,7 @@ const AuctionRoom = () => {
 
 	// useEffect(() => console.log(showItem), [showItem]);
 	useEffect(() => {
-		if (!currentItem) {
+		if (eventObj.status === "hold") {
 			toast({
 				title: "Waiting for event to start",
 				description: "Please wait for the owner to start the auction.",
@@ -73,7 +83,7 @@ const AuctionRoom = () => {
 			});
 		}
 
-		if (currentItem) {
+		if (eventObj.status === "started") {
 			toast({
 				title: "The Event has Started! ",
 				description: "Place your bids for this item.",
@@ -82,7 +92,7 @@ const AuctionRoom = () => {
 				isClosable: true,
 			});
 		}
-	}, [currentItem]);
+	}, [eventObj]);
 
 	const firstItem = () => {
 		console.log("In function", eventItems);
@@ -123,7 +133,7 @@ const AuctionRoom = () => {
 			<EventContext.Provider value={[currentItem, setCurrentItem]}>
 				<ItemsContext.Provider value={[eventItems, setEventItems]}>
 					{currentUser.uid === eventObj.created_by ? (
-						<EventOrganizer setShowItem={setShowItem} />
+						<EventOrganizer setShowItem={setShowItem} id={id} />
 					) : null}
 					<Grid
 						h="100vh"
@@ -137,6 +147,7 @@ const AuctionRoom = () => {
 									{eventObj.items && (
 										<ItemParent
 											itemsArr={eventObj.items}
+											eventStatus={eventObj.status}
 											currentItem={currentItem}
 											setCurrentItem={setCurrentItem}
 											showItem={showItem}
