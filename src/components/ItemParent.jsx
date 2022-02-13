@@ -36,6 +36,7 @@ const ItemParent = (props) => {
 			<ItemDetails
 				totalItems={eventItems}
 				eventStatus={props.eventStatus}
+				recentBid={props.recentBid}
 				nextItemFunc={nextItem}
 			/>
 		</>

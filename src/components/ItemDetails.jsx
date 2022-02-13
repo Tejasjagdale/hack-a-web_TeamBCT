@@ -25,10 +25,9 @@ const renderTime = (dimension, time) => {
 };
 
 const ItemDetails = (props) => {
-	console.log(props.eventStatus);
 	const { colorMode } = useColorMode();
 	const [currentItem, setCurrentItem] = useContext(EventContext);
-	const [durationState, setDurationState] = useState(0);
+	const [duration, setDuration] = useState(-1);
 	const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
 	const itemSold = () => {
 		if (currentItem.status === "ongoing") {
@@ -41,11 +40,20 @@ const ItemDetails = (props) => {
 		}
 	};
 
-	const getDuration = (itemTimer, bidTime) => {
-		const duration = itemTimer * 1000 - (Date.now() - bidTime);
-		console.log("Duration", duration / 1000);
-		return duration / 1000;
+	const getDuration = () => {
+		console.log(props.recentBid.timestamp);
+		let duration =
+			currentItem.timer - (Date.now() - props.recentBid.timestamp) / 1000;
+		console.log(duration);
+		setDuration(duration);
 	};
+
+	useEffect(() => {
+		if (props.recentBid.timestamp) {
+			console.log(duration);
+			getDuration();
+		}
+	}, [props.recentBid.timestamp]);
 
 	// useEffect(() => {
 
@@ -53,7 +61,7 @@ const ItemDetails = (props) => {
 
 	useEffect(() => {
 		if (currentItem === null) {
-			console.log("Current item is now null");
+			// console.log("Current item is now null");
 			props.nextItemFunc();
 		}
 	}, [currentItem]);
@@ -109,7 +117,7 @@ const ItemDetails = (props) => {
 						<CountdownCircleTimer
 							size={150}
 							isPlaying={props.eventStatus === "started" && true}
-							duration={() => getDuration(currentItem.timer, 1644743640933)}
+							duration={duration}
 							{...(colorMode === "dark"
 								? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
 								: { colors: ["#000", "#000", "#000", "#000"] })}

@@ -21,7 +21,6 @@ const UserControls = (props) => {
 	const [userBid, setUserBid] = useState(props.currentbid);
 	const [currentItem, setCurrentItem] = useContext(EventContext);
 
-	const [beatenBid, setBeatenBid] = useState(null);
 
 	const newBid = () => {
 		let temp = currentItem;
@@ -41,7 +40,6 @@ const UserControls = (props) => {
 		push(ref(rdb, "bids/"), data).then((res) => {
 			const tempItem = data;
 			tempItem.id = res.key;
-			setBeatenBid(tempItem);
 		});
 	};
 
@@ -52,7 +50,7 @@ const UserControls = (props) => {
 				<Button onClick={() => setUserBid(userBid + 1000)}> + 1000</Button>
 				<Button onClick={() => setUserBid(userBid + 1500)}> + 1500</Button>
 				<Button onClick={() => setUserBid(userBid + 5000)}> + 5000</Button>
-				<Input w="20vw" type="number" placeholder="Enter Custom Bid"></Input>
+				<Input w="25vw" type="number" placeholder="Enter Custom Bid"></Input>
 				<Box borderWidth="1px" rounded="lg" px={10} py={3}>
 					<VStack>
 						<Flex direction="row" justifyContent="left" alignItems="center">
