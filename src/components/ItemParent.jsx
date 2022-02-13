@@ -3,32 +3,17 @@ import ItemDetails from "./ItemDetails";
 import ItemViewer from "./ItemViewer";
 import { rdb } from "../utils/firebase-config";
 import { child, onValue, push, ref, update } from "firebase/database";
-import { EventContext } from "../pages/AuctionRoom";
+import { EventContext, ItemsContext } from "../pages/AuctionRoom";
 
 const ItemParent = (props) => {
-  const [eventItems, setEventItems] = useState([]);
+  const [eventItems, setEventItems] = useContext(ItemsContext);
   const [currentItem, setCurrentItem] = useContext(EventContext);
-
-  useEffect(() => {
-    const itemsRef = ref(rdb, "items/");
-    onValue(itemsRef, (snapshot) => {
-      const itemsDataObj = snapshot.val();
-      let tempObj = [];
-      Object.keys(itemsDataObj).map((ele, index) => {
-        if (props.itemsArr.includes(ele)) {
-          tempObj.push({ ...itemsDataObj[ele], id: ele });
-        }
-      });
-      setEventItems(tempObj);
-    });
-  }, []);
 
   useEffect(() => {
     nextItem();
   }, [props.showItem]);
 
   const nextItem = () => {
-    console.log(eventItems);
     eventItems.every(function (element, index) {
       if (element.status === "hold") {
         // Write the new post's data simultaneously in the posts list and the user's post list.
@@ -48,7 +33,7 @@ const ItemParent = (props) => {
   return (
     <>
       <ItemViewer />
-      <ItemDetails totalItems={eventItems.length} />
+      <ItemDetails totalItems={eventItems.length} nextItemFunc={nextItem} />
     </>
   );
 };
