@@ -59,13 +59,6 @@ const ItemDetails = (props) => {
 
 	// }, [bid])
 
-	useEffect(() => {
-		if (currentItem === null) {
-			// console.log("Current item is now null");
-			props.nextItemFunc();
-		}
-	}, [currentItem]);
-
 	const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
 	return (

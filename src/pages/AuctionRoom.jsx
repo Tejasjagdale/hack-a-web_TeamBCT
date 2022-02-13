@@ -122,7 +122,7 @@ const AuctionRoom = () => {
 		eventItems.every(function (element, index) {
 			if (element.status === "ongoing") {
 				setCurrentItem(element);
-				return false
+				return false;
 			}
 			if (element.status === "hold") {
 				// Write the new post's data simultaneously in the posts list and the user's post list.

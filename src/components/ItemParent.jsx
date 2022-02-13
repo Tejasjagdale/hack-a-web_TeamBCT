@@ -9,9 +9,17 @@ const ItemParent = (props) => {
 	const [eventItems, setEventItems] = useContext(ItemsContext);
 	const [currentItem, setCurrentItem] = useContext(EventContext);
 
+	// useEffect(() => {
+	// 	nextItem();
+	// }, [props.showItem]);
+
 	useEffect(() => {
-		nextItem();
-	}, [props.showItem]);
+		console.log(currentItem);
+		if (currentItem === null) {
+			// console.log("Current item is now null");
+			nextItem();
+		}
+	}, [currentItem]);
 
 	const nextItem = () => {
 		eventItems.every(function (element, index) {
