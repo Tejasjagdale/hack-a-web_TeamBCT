@@ -116,6 +116,15 @@ const AuctionRoom = () => {
   };
 
   useEffect(() => {
+    first
+  
+    return () => {
+      second
+    }
+  }, [])
+  
+
+  useEffect(() => {
     if (eventItems.length > 0) {
       let all_hold = false;
       eventItems.every((ele, index) => {
