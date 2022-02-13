@@ -4,6 +4,7 @@ import {
 	Button,
 	chakra,
 	Flex,
+	Text,
 	useColorModeValue,
 	// Text,
 } from "@chakra-ui/react";
@@ -25,8 +26,7 @@ const ItemsCard = (props) => {
 					w={1 / 3}
 					bgSize="cover"
 					style={{
-						backgroundImage:
-							"url('https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80')",
+						backgroundImage: `url("${props.item.photos[0]}")`,
 					}}
 				></Box>
 
@@ -36,8 +36,9 @@ const ItemsCard = (props) => {
 						fontWeight="bold"
 						color={useColorModeValue("gray.800", "white")}
 					>
-						{props.item.id}
+						{props.item.name}
 					</chakra.h1>
+					<Text fontSize="sm">{props.item.id}</Text>
 
 					<chakra.p
 						mt={2}
