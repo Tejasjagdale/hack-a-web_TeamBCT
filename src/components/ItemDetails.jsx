@@ -27,7 +27,7 @@ const renderTime = (dimension, time) => {
 const ItemDetails = (props) => {
 	const { colorMode } = useColorMode();
 	const [currentItem, setCurrentItem] = useContext(EventContext);
-	const [duration, setDuration] = useState(-1);
+	const [duration, setDuration] = useState(0);
 	const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
 	const itemSold = () => {
 		if (currentItem && currentItem.status === "ongoing") {
@@ -77,7 +77,13 @@ const ItemDetails = (props) => {
 						justifyContent="left"
 						alignItems="flex-start"
 					>
-						<Text fontSize="md">{`Item(s) 2/${props.totalItems.length}`}</Text>
+						<Text fontSize="md">
+							{props.totalItems && currentItem
+								? `Item(s) ${props.totalItems.indexOf(currentItem.id)}/${
+										props.totalItems.length
+								  }`
+								: null}
+						</Text>
 					</Flex>
 					<Flex
 						direction="column"
@@ -128,8 +134,8 @@ const ItemDetails = (props) => {
 							colorsTime={[7, 5, 0]}
 						>
 							{({ remainingTime }) => {
-								if (remainingTime === 0) {
-									itemSold()
+								if (remainingTime === 1) {
+									itemSold();
 								}
 								return remainingTime;
 							}}

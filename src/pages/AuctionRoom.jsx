@@ -118,41 +118,26 @@ const AuctionRoom = () => {
 
   useEffect(() => console.log(recentBid), [recentBid]);
 
-  const firstItem = () => {
-    eventItems.every(function (element, index) {
-      if (element.status === "ongoing") {
-        setCurrentItem(element);
-        return false;
-      }
-      if (element.status === "hold") {
-        // Write the new post's data simultaneously in the posts list and the user's post list.
-        const updates = {};
-        element.status = "ongoing";
-        element.currentbid = "----";
-        updates["/items/" + element.id] = element;
-        update(ref(rdb), updates);
-        setCurrentItem(element);
-        return false;
-      } else {
-        return true;
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (eventItems.length > 0) {
-      let all_hold = false;
-      eventItems.every((ele, index) => {
-        if (ele.status === "hold") {
-          all_hold = true;
-        }
-      });
-      // console.log("All hold", all_hold);
-      if (all_hold) {
-        firstItem();
-      }
-    }
-  }, [eventItems]);
+	const firstItem = () => {
+		eventItems.every(function (element, index) {
+			if (element.status === "ongoing") {
+				setCurrentItem(element);
+				return false
+			}
+			if (element.status === "hold") {
+				// Write the new post's data simultaneously in the posts list and the user's post list.
+				const updates = {};
+				element.status = "ongoing";
+				element.currentbid = "----";
+				updates["/items/" + element.id] = element;
+				update(ref(rdb), updates);
+				setCurrentItem(element);
+				return false;
+			} else {
+				return true;
+			}
+		});
+	};
 
   return (
     <>
