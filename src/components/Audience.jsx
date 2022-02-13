@@ -1,150 +1,45 @@
-import { Avatar, AvatarGroup, Flex, Wrap, WrapItem } from "@chakra-ui/react";
-import React from "react";
+import { Avatar, useToast, Wrap, WrapItem } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import firebase from "firebase/compat/app";
 
-const Audience = () => {
+const Audience = ({ usersArr }) => {
+	const [userDetails, setUserDetails] = useState([]);
+
+	const toast = useToast();
+
+	useEffect(() => {
+		const getFunc = async () => {
+			const snapshot = await firebase.firestore().collection("Users").get();
+			setUserDetails([]);
+			if (!snapshot.empty) {
+				snapshot.forEach((ele) => {
+					if (usersArr.includes(ele.id.toString())) {
+						setUserDetails((prevState) => [...prevState, ele.data()]);
+					}
+				});
+			}
+		};
+
+		getFunc();
+	}, [usersArr]);
+
+	//   useEffect(() => console.log(userDetails), [userDetails]);
+
 	return (
 		<div>
 			<Wrap spacing="50px">
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Dan Abrahmov"
-						src="https://bit.ly/dan-abramov"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kola Tioluwani"
-						src="https://bit.ly/tioluwani-kolawole"
-					/>
-				</WrapItem>
-
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kola Tioluwani"
-						src="https://bit.ly/tioluwani-kolawole"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kent Dodds"
-						src="https://bit.ly/kent-c-dodds"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Ryan Florence"
-						src="https://bit.ly/ryan-florence"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Prosper Otemuyiwa"
-						src="https://bit.ly/prosper-baba"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Christian Nwamba"
-						src="https://bit.ly/code-beast"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Segun Adebayo"
-						src="https://bit.ly/sage-adebayo"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Dan Abrahmov"
-						src="https://bit.ly/dan-abramov"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kola Tioluwani"
-						src="https://bit.ly/tioluwani-kolawole"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kent Dodds"
-						src="https://bit.ly/kent-c-dodds"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Ryan Florence"
-						src="https://bit.ly/ryan-florence"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Prosper Otemuyiwa"
-						src="https://bit.ly/prosper-baba"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Christian Nwamba"
-						src="https://bit.ly/code-beast"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Segun Adebayo"
-						src="https://bit.ly/sage-adebayo"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Dan Abrahmov"
-						src="https://bit.ly/dan-abramov"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kola Tioluwani"
-						src="https://bit.ly/tioluwani-kolawole"
-					/>
-				</WrapItem>
-				<WrapItem>
-					<Avatar
-						size="lg"
-						name="Kent Dodds"
-						src="https://bit.ly/kent-c-dodds"
-					/>
-				</WrapItem>
-
-				<WrapItem>
-					<AvatarGroup size="lg" max={2}>
-						<Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
-						<Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
-						<Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
-						<Avatar
-							name="Prosper Otemuyiwa"
-							src="https://bit.ly/prosper-baba"
-						/>
-						<Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
-					</AvatarGroup>
-				</WrapItem>
+				{userDetails.map((user, index) => {
+					return (
+						<WrapItem key={index}>
+							<Avatar
+								key={index}
+								size="lg"
+								name={user.fname + " " + user.lname}
+								src={user.photo}
+							/>
+						</WrapItem>
+					);
+				})}
 			</Wrap>
 		</div>
 	);

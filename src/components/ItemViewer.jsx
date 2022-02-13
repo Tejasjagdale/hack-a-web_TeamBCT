@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -8,8 +8,10 @@ import "swiper/css/navigation";
 import "../styles/carousel.css";
 
 import { EffectFade, Navigation, Pagination } from "swiper";
+import { EventContext } from "../pages/AuctionRoom";
 
-const ItemViewer = () => {
+const ItemViewer = (props) => {
+	const [currentItem, setCurrentItem] = useContext(EventContext);
 	return (
 		<>
 			<Swiper
@@ -28,25 +30,41 @@ const ItemViewer = () => {
 			>
 				<SwiperSlide>
 					<img
-						src="https://swiperjs.com/demos/images/nature-1.jpg"
+						src={
+							currentItem
+								? currentItem.photos[0]
+								: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAHUZX_s6WFf6ftWvY-0Zim-tARVWunDXjyrbnvaJsCYDk5GA7HckdhGEvk5R80Io-7Ak&usqp=CAU"
+						}
 						alt="dhfkolj"
 					/>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img
-						src="https://swiperjs.com/demos/images/nature-2.jpg"
+						src={
+							currentItem
+								? currentItem.photos[1]
+								: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAHUZX_s6WFf6ftWvY-0Zim-tARVWunDXjyrbnvaJsCYDk5GA7HckdhGEvk5R80Io-7Ak&usqp=CAU"
+						}
 						alt="dhfkolj"
 					/>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img
-						src="https://swiperjs.com/demos/images/nature-3.jpg"
+						src={
+							currentItem
+								? currentItem.photos[2]
+								: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAHUZX_s6WFf6ftWvY-0Zim-tARVWunDXjyrbnvaJsCYDk5GA7HckdhGEvk5R80Io-7Ak&usqp=CAU"
+						}
 						alt="dhfkolj"
 					/>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img
-						src="https://swiperjs.com/demos/images/nature-4.jpg"
+						src={
+							currentItem
+								? currentItem.photos[3]
+								: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAHUZX_s6WFf6ftWvY-0Zim-tARVWunDXjyrbnvaJsCYDk5GA7HckdhGEvk5R80Io-7Ak&usqp=CAU"
+						}
 						alt="dhfkolj"
 					/>
 				</SwiperSlide>
