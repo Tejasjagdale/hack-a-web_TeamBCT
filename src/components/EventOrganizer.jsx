@@ -25,9 +25,7 @@ const EventOrganizer = (props) => {
 						<Button bg="teal.800" onClick={startEvent}>
 							Start Event
 						</Button>
-						<Button bg="blue.800" onClick={() => props.setShowItem(true)}>
-							Next Item
-						</Button>
+
 						<Button bg="red.800">End Event</Button>
 					</HStack>
 				</Flex>

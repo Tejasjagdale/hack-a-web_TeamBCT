@@ -78,7 +78,7 @@ const AuctionRoom = () => {
 				title: "Waiting for event to start",
 				description: "Please wait for the owner to start the auction.",
 				status: "info",
-				duration: 9000,
+				duration: 5000,
 				isClosable: true,
 			});
 		}
@@ -88,7 +88,7 @@ const AuctionRoom = () => {
 				title: "The Event has Started! ",
 				description: "Place your bids for this item.",
 				status: "success",
-				duration: 9000,
+				duration: 5000,
 				isClosable: true,
 			});
 		}
