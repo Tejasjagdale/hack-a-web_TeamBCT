@@ -11,6 +11,8 @@ import { Card } from "./Card";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "../styles/timer.css";
 import { EventContext } from "../pages/AuctionRoom";
+import { ref, update } from "firebase/database";
+import { rdb } from "../utils/firebase-config";
 
 const renderTime = (dimension, time) => {
   return (
@@ -24,10 +26,15 @@ const renderTime = (dimension, time) => {
 const ItemDetails = (props) => {
   const { colorMode } = useColorMode();
   const [currentItem, setCurrentItem] = useContext(EventContext);
-  const minuteSeconds = parseInt(currentItem ? currentItem.timer : 0);
+  const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
   const itemSold = (e) => {
+    e.preventDefault();
     console.log("item sold");
-    setCurrentItem(null)
+    const updates = {};
+    currentItem.status = "sold";
+    updates["/items/" + currentItem.id] = currentItem;
+    update(ref(rdb), updates);
+    setCurrentItem(null);
   };
   const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 
@@ -80,7 +87,7 @@ const ItemDetails = (props) => {
             <CountdownCircleTimer
               size={150}
               isPlaying
-              duration={minuteSeconds}
+              duration={currentItem && minuteSeconds}
               {...(colorMode === "dark"
                 ? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
                 : { colors: ["#000", "#000", "#000", "#000"] })}
@@ -88,8 +95,11 @@ const ItemDetails = (props) => {
             >
               {({ elapsedTime, color }) => (
                 <span style={{ color }}>
-                  {renderTime("seconds", getTimeSeconds(elapsedTime))}
-                  {getTimeSeconds(elapsedTime) === 0 ? itemSold() : null}
+                  {currentItem &&
+                    renderTime("seconds", getTimeSeconds(elapsedTime))}
+                  {currentItem && getTimeSeconds(elapsedTime) === 0
+                    ? itemSold()
+                    : null}
                 </span>
               )}
             </CountdownCircleTimer>

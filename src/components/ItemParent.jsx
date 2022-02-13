@@ -31,13 +31,11 @@ const ItemParent = (props) => {
     console.log(eventItems);
     eventItems.every(function (element, index) {
       if (element.status === "hold") {
-        const newPostKey = push(child(ref(rdb), "items/")).key;
-
         // Write the new post's data simultaneously in the posts list and the user's post list.
         const updates = {};
         element.status = "ongoing";
         element.currentbid = "----";
-        updates["/items/" + newPostKey] = element;
+        updates["/items/" + element.id] = element;
         update(ref(rdb), updates);
         setCurrentItem(element);
         return false;
@@ -50,9 +48,7 @@ const ItemParent = (props) => {
   return (
     <>
       <ItemViewer />
-      <ItemDetails
-        totalItems={eventItems.length}
-      />
+      <ItemDetails totalItems={eventItems.length} />
     </>
   );
 };
