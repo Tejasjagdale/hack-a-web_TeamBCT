@@ -8,7 +8,7 @@ const EventOrganizer = (props) => {
       <Card w="full" m="3" h="full">
         <Text>Event org control</Text>
         <Button>Start Event</Button>
-        <Button onClick={()=> props.setShowItem(true)}>Next Item</Button>
+        <Button >Next Item</Button>
         <Button>End Event</Button>
       </Card>
     </>

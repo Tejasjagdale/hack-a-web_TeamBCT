@@ -11,15 +11,37 @@ import {
 import React, { useContext, useState } from "react";
 import { Card } from "./Card";
 import { EventContext } from "../pages/AuctionRoom";
+import { push, ref } from "firebase/database";
+import { rdb } from "../utils/firebase-config";
+import { useAuth } from "../context/AuthContext";
 
 const UserControls = (props) => {
+  const {currentUser} =  useAuth()
   const [userBid, setUserBid] = useState(props.currentbid);
   const [currentItem, setCurrentItem] = useContext(EventContext);
+  const [beatenBid,setBeatenBid] =  useState(null);
 
   const newBid = () => {
     let temp = currentItem;
     temp.currentbid = `$${userBid}`;
     setCurrentItem(JSON.parse(JSON.stringify(temp)));
+    let d =  new Date();
+
+    let data = {
+      event_id: currentItem.id,
+      item_id: props.eventid,
+      amount: userBid,
+      by: currentUser.uid,
+      status: "current",
+      timestamp: d
+    }
+
+    push(ref(rdb, "bids/"), data).then((res) => {
+      const tempItem = data;
+      tempItem.id = res.key;
+      setBeatenBid(tempItem)
+    })
+
   };
 
   return (

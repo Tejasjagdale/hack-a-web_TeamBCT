@@ -28,7 +28,6 @@ const ItemParent = (props) => {
   }, [props.showItem]);
 
   const nextItem = () => {
-    console.log(eventItems);
     eventItems.every(function (element, index) {
       if (element.status === "hold") {
         // Write the new post's data simultaneously in the posts list and the user's post list.
@@ -48,7 +47,7 @@ const ItemParent = (props) => {
   return (
     <>
       <ItemViewer />
-      <ItemDetails totalItems={eventItems.length} />
+      <ItemDetails showItem={props.showItem} nextItem={nextItem} totalItems={eventItems.length} />
     </>
   );
 };

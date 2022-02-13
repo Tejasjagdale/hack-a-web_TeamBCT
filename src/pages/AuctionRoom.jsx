@@ -74,10 +74,10 @@ const AuctionRoom = () => {
           <GridItem rowSpan={3} colSpan={12}>
             <Flex direction="row" justifyContent="space-apart">
               <UserControls
-                setShowItem={setShowItem}
+                eventid={id}
                 currentbid={currentItem ? currentItem.currentbid : 100}
               />
-              <EventOrganizer setShowItem={setShowItem} />
+              <EventOrganizer />
             </Flex>
           </GridItem>
         </Grid>
