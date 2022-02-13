@@ -43,14 +43,25 @@ const AuctionRoom = () => {
 
 	// useEffect(() => console.log(showItem), [showItem]);
 	useEffect(() => {
-		toast({
-			title: "Waiting for event to start",
-			description: "Please wait for the owner to start the auction.",
-			status: "info",
-			duration: 9000,
-			isClosable: true,
-		});
-		console.log(currentItem);
+		if (!currentItem) {
+			toast({
+				title: "Waiting for event to start",
+				description: "Please wait for the owner to start the auction.",
+				status: "info",
+				duration: 9000,
+				isClosable: true,
+			});
+		}
+
+		if (currentItem) {
+			toast({
+				title: "The Event has Started! ",
+				description: "Place your bids for this item.",
+				status: "success",
+				duration: 9000,
+				isClosable: true,
+			});
+		}
 	}, [currentItem]);
 
 	return (

@@ -5,7 +5,6 @@ import {
 	Spinner,
 	Text,
 	useColorMode,
-	useToast,
 	VStack,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
@@ -26,7 +25,6 @@ const renderTime = (dimension, time) => {
 };
 
 const ItemDetails = (props) => {
-	
 	const { colorMode } = useColorMode();
 	const [currentItem, setCurrentItem] = useContext(EventContext);
 	const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
@@ -101,11 +99,9 @@ const ItemDetails = (props) => {
 								<span style={{ color }}>
 									{currentItem &&
 										renderTime("seconds", getTimeSeconds(elapsedTime))}
-									{currentItem && getTimeSeconds(elapsedTime) === 0 ? (
-										itemSold()
-									) : (
-										<Spinner size="sm" />
-									)}
+									{currentItem && getTimeSeconds(elapsedTime) === 0
+										? itemSold()
+										: null}
 								</span>
 							)}
 						</CountdownCircleTimer>
