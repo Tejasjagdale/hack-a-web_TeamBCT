@@ -23,10 +23,11 @@ const Audience = ({ usersArr }) => {
   return (
     <div>
       <Wrap spacing="50px">
-        {userDetails.map((user) => {
+        {userDetails.map((user, index) => {
           return (
-            <WrapItem>
+            <WrapItem key={index}>
               <Avatar
+                key={index}
                 size="lg"
                 name={user.fname + " " + user.lname}
                 src={user.photo}
