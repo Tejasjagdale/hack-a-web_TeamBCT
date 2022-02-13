@@ -27,8 +27,7 @@ const ItemDetails = (props) => {
   const { colorMode } = useColorMode();
   const [currentItem, setCurrentItem] = useContext(EventContext);
   const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
-  const itemSold = (e) => {
-    e.preventDefault();
+  const itemSold = () => {
     console.log("item sold");
     const updates = {};
     currentItem.status = "sold";

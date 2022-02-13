@@ -10,10 +10,12 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import ItemParent from "../components/ItemParent";
 import EventOrganizer from "../components/EventOrganizer";
+import { useAuth } from "../context/AuthContext";
 export const EventContext = createContext({});
 
 const AuctionRoom = () => {
   let { id } = useParams();
+  const { currentUser } = useAuth();
   const [showItem, setShowItem] = useState(false);
   const [eventObj, setEventObj] = useState({});
   const [currentItem, setCurrentItem] = useState(null);
@@ -77,7 +79,9 @@ const AuctionRoom = () => {
                 setShowItem={setShowItem}
                 currentbid={currentItem ? currentItem.currentbid : 100}
               />
-              <EventOrganizer setShowItem={setShowItem} />
+              {currentUser.uid === eventObj.created_by ? (
+                <EventOrganizer setShowItem={setShowItem} />
+              ) : null}
             </Flex>
           </GridItem>
         </Grid>
