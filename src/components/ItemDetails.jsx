@@ -96,7 +96,7 @@ const ItemDetails = (props) => {
             <CountdownCircleTimer
               size={150}
               isPlaying
-              duration={currentItem && minuteSeconds}
+              duration={minuteSeconds}
               {...(colorMode === "dark"
                 ? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
                 : { colors: ["#000", "#000", "#000", "#000"] })}
@@ -104,8 +104,7 @@ const ItemDetails = (props) => {
             >
               {({ elapsedTime, color }) => (
                 <span style={{ color }}>
-                  {currentItem &&
-                    renderTime("seconds", getTimeSeconds(elapsedTime))}
+                  {renderTime("seconds", getTimeSeconds(elapsedTime))}
                   {currentItem && getTimeSeconds(elapsedTime) === 0
                     ? itemSold()
                     : null}
