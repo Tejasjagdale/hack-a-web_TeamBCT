@@ -1,10 +1,4 @@
-import {
-	Button,
-	Flex,
-	HStack,
-	Text,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 import React from "react";
 import { Card } from "./Card";
 
