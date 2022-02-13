@@ -17,6 +17,7 @@ export const ItemsContext = createContext([]);
 
 const AuctionRoom = () => {
 	let { id } = useParams();
+	const toast = useToast();
 	const { currentUser } = useAuth();
 	const [showItem, setShowItem] = useState(false);
 	const [eventObj, setEventObj] = useState({});
