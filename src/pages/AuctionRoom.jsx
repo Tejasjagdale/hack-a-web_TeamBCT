@@ -67,6 +67,9 @@ const AuctionRoom = () => {
 	return (
 		<>
 			<EventContext.Provider value={[currentItem, setCurrentItem]}>
+				{currentUser.uid === eventObj.created_by ? (
+					<EventOrganizer setShowItem={setShowItem} />
+				) : null}
 				<Grid
 					h="100vh"
 					templateRows="repeat(12, 1fr)"
@@ -87,6 +90,7 @@ const AuctionRoom = () => {
 							</Flex>
 						</Card>
 					</GridItem>
+
 					<GridItem rowSpan={5} colSpan={12}>
 						<Card overflow="hidden">
 							{eventObj.total_users && (
@@ -100,9 +104,6 @@ const AuctionRoom = () => {
 								setShowItem={setShowItem}
 								currentbid={currentItem ? currentItem.currentbid : 100}
 							/>
-							{currentUser.uid === eventObj.created_by ? (
-								<EventOrganizer setShowItem={setShowItem} />
-							) : null}
 						</Flex>
 					</GridItem>
 				</Grid>
