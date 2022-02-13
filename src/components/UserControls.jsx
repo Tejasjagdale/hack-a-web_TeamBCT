@@ -21,7 +21,6 @@ const UserControls = (props) => {
 	const [userBid, setUserBid] = useState(props.currentbid);
 	const [currentItem, setCurrentItem] = useContext(EventContext);
 
-	const [beatenBid, setBeatenBid] = useState(null);
 
 	const newBid = () => {
 		let temp = currentItem;
@@ -41,7 +40,6 @@ const UserControls = (props) => {
 		push(ref(rdb, "bids/"), data).then((res) => {
 			const tempItem = data;
 			tempItem.id = res.key;
-			setBeatenBid(tempItem);
 		});
 	};
 

@@ -14,13 +14,6 @@ const Audience = ({ usersArr }) => {
 			if (!snapshot.empty) {
 				snapshot.forEach((ele) => {
 					if (usersArr.includes(ele.id.toString())) {
-						toast({
-							title: "New User Joined! ",
-
-							status: "success",
-							duration: 5000,
-							isClosable: true,
-						});
 						setUserDetails((prevState) => [...prevState, ele.data()]);
 					}
 				});
