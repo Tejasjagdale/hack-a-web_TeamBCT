@@ -30,7 +30,7 @@ const ItemDetails = (props) => {
 	const [duration, setDuration] = useState(-1);
 	const minuteSeconds = parseInt(currentItem ? currentItem.timer : 60);
 	const itemSold = () => {
-		if (currentItem.status === "ongoing") {
+		if (currentItem && currentItem.status === "ongoing") {
 			console.log("item sold");
 			const updates = {};
 			currentItem.status = "sold";
@@ -116,14 +116,23 @@ const ItemDetails = (props) => {
 					<Flex direction="column" justifyContent="center" alignItems="center">
 						<CountdownCircleTimer
 							size={150}
-							isPlaying={props.eventStatus === "started" && true}
+							key={props.recentBid.amount > 0 ? props.recentBid.amount : 1}
+							isPlaying={
+								props.eventStatus === "started" && props.recentBid.timestamp
+							}
+							// onComplete={itemSold}
 							duration={duration}
 							{...(colorMode === "dark"
 								? { colors: ["#12c2e9", "#c471ed", "#f64f59"] }
 								: { colors: ["#000", "#000", "#000", "#000"] })}
 							colorsTime={[7, 5, 0]}
 						>
-							{({ remainingTime }) => remainingTime}
+							{({ remainingTime }) => {
+								if (remainingTime === 0) {
+									itemSold()
+								}
+								return remainingTime;
+							}}
 						</CountdownCircleTimer>
 						<Text fontSize="sm" mt={2} color="GrayText">
 							Until next bid
